@@ -63,8 +63,7 @@
           </div>
         </div>
         <div class="containtBoxDiv2">
-          <div class="table-container" id="all-table-container">
-            <script id="table-template" type="text/x-handlebars-template">
+          <script id="table-template" type="text/x-handlebars-template">
               <!-- Overburden Section -->
               <div class="table-title">Overburden</div>
               <br />
@@ -348,9 +347,12 @@
               <!-- template.hbs -->
             </script>
 
-            <br />
+            <div class="table-container" id="all-table-container">
+              <div class="empty-state-message" style="text-align: center; padding: 48px 20px; color: #4b5563; font-size: 16px; font-weight: 500;">
+                Click on the <strong>Generate Log</strong> button above to load today's shift log data.
+              </div>
+            </div>
           </div>
-        </div>
       </div>
     </div>
     <script type="module" src="./js/Dashboard_page2.js"></script>
