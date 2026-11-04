@@ -4,12 +4,13 @@ import { getAuth } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-auth
 import { getFirestore } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-firestore.js";
 
 const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_AUTH_DOMAIN",
-  projectId: "YOUR_PROJECT_ID",
-  storageBucket: "YOUR_STORAGE_BUCKET",
-  messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-  appId: "YOUR_APP_ID",
+  apiKey: "AIzaSyBmu1ZCFbZWzpYM0HTQUtzpaXA89sMawgA",
+  authDomain: "black-gold-shift-2-hosted.firebaseapp.com",
+  projectId: "black-gold-shift-2-hosted",
+  storageBucket: "black-gold-shift-2-hosted.firebasestorage.app",
+  messagingSenderId: "988921262702",
+  appId: "1:988921262702:web:02aabf0008819d0f6eac7f",
+  measurementId: "G-563G7BFQZF",
 };
 
 // Initialize Firebase
@@ -18,4 +19,3 @@ const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
 export const db = getFirestore(app);
 export default app;
-
