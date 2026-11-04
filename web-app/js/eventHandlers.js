@@ -10,16 +10,17 @@ onAuthStateChanged(auth, (user) => {
     return;
   }
 
-  // Only run page code when user is signed in
+  // Already on monitoring page, do nothing
+  document
+    .getElementById("monitoringButton")
+    ?.addEventListener("click", (e) => {
+      e.preventDefault();
+    });
+
   document
     .getElementById("tableSectionButton")
     ?.addEventListener("click", () => {
-      const targetUrl = "./Dashboard_page2.html";
-      if (window.location.href !== targetUrl) {
-        window.location.href = targetUrl;
-      } else {
-        alert("You are already on the target page!");
-      }
+      window.location.href = "./Dashboard_page2.html";
     });
 
   document

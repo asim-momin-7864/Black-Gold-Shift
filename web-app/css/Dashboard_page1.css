@@ -1,11 +1,13 @@
 @import url("https://fonts.googleapis.com/css2?family=Cantora+One&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+
 .cantora-one-regular {
   font-family: "Cantora One", sans-serif;
   font-weight: 400;
   font-style: normal;
 }
+
 .poppins-semibold {
   font-family: "Poppins", sans-serif;
   font-weight: 600;
@@ -27,423 +29,279 @@
 
 /* Custom Scrollbar Styles */
 ::-webkit-scrollbar {
-  width: 0px; /* Adjust the width as needed */
+  width: 8px;
+  height: 8px;
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: #000000; /* Change the thumb color */
-  border: 0px solid #000000; /* Add a border to the thumb */
-  border-radius: 0px; /* Round the corners of the thumb */
+  background-color: #444;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #666;
 }
 
 ::-webkit-scrollbar-track {
-  background-color: transparent; /* Make the track transparent */
-}
-
-/* Optional: Apply scrollbar styles to specific elements */
-.some-element {
-  overflow-y: scroll; /* Enable scrolling */
+  background-color: #1a1a1a;
 }
 
 * {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
 
 body {
-  position: absolute;
+  background-color: #121212;
+  color: #ffffff;
+  min-height: 100vh;
   overflow-x: hidden;
   overflow-y: auto;
+  font-family: "Poppins", sans-serif;
 }
 
+/* Top Navigation Bar */
 .navbar {
   position: fixed;
-  height: 10vh;
-  width: 100vw;
-  top: 0px;
+  height: 60px;
+  width: 100%;
+  top: 0;
+  left: 0;
   background-color: rgba(8, 20, 52, 1);
   z-index: 100;
   display: flex;
   flex-direction: row;
-  flex-wrap: nowrap;
-  align-content: center;
-  justify-content: flex-start;
   align-items: center;
+  padding: 0 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
 }
 
 .navDiv1 {
-  position: relative;
-  height: 100%;
-  width: 7%;
   display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  align-content: center;
-  justify-content: center;
   align-items: center;
+  margin-right: 14px;
 }
 
 .navDiv1 img {
-  position: relative;
-  height: 7vh;
+  height: 38px;
+  width: auto;
 }
 
 .navDiv2 {
-  position: relative;
-  height: 100%;
-  width: 77%;
-
   display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  align-content: center;
-  justify-content: flex-start;
   align-items: center;
+  flex-grow: 1;
 }
 
 .websiteName {
-  position: relative;
-  font-size: 4vh;
-  margin-left: 0.5vw;
-  color: white;
+  font-size: 22px;
+  color: #ffffff;
+  letter-spacing: 0.5px;
 }
 
-.navDiv3 {
-  position: relative;
-  height: 100%;
-  width: 15%;
-
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  align-content: center;
-  justify-content: center;
-  align-items: center;
-}
-
-.accountProfile {
-  position: relative;
-  height: 6vh;
-  width: 10vw;
-  background-color: rgba(24, 54, 133, 1);
-  border-radius: 2rem;
-  /* border: 0.1rem solid white; */
-}
-
+/* Sidebar */
 .sidebar {
   position: fixed;
-  height: 90vh;
-  width: 7vw;
-  background-color: rgba(30, 30, 30, 1);
-  top: 10vh;
-  left: 0vw;
-  z-index: 100;
+  top: 60px;
+  left: 0;
+  bottom: 0;
+  width: 68px;
+  background-color: #1a1a1a;
+  z-index: 90;
   display: flex;
   flex-direction: column;
-  flex-wrap: nowrap;
-  align-content: center;
-  justify-content: center;
   align-items: center;
-  row-gap: 8vh;
+  padding-top: 18px;
+  gap: 16px;
+  border-right: 1px solid #262626;
 }
 
 .sidebarButtons {
-  position: relative;
-  height: 10%;
-  width: 62%;
-  background-color: black;
-  border-radius: 1rem;
+  width: 44px;
+  height: 44px;
+  background-color: #0d0d0d;
+  border: 1px solid #333333;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.2s, border-color 0.2s, transform 0.1s;
+}
+
+.sidebarButtons:hover {
+  background-color: #262626;
+  border-color: #555555;
+}
+
+.sidebarButtons.active {
+  background-color: #183685;
+  border-color: #4285f4;
 }
 
 .material-symbols-outlined {
-  font-size: 2vw !important;
-  color: white;
+  font-size: 22px !important;
+  color: #ffffff;
 }
 
-@media only screen and (max-width: 900px) {
-  .sidebarButtons {
-    height: 7vh;
-    border-radius: 12px;
-  }
-  .material-symbols-outlined {
-    font-size: 2.8vw !important;
-    color: white;
-  }
-}
-
+/* Main Content Container */
 .containtBox {
-  position: absolute;
-  background-color: rgb(30 30 30);
-  height: 100vh;
-  width: 93vw;
-  top: 10vh;
-  left: 7vw;
+  margin-left: 68px;
+  margin-top: 60px;
+  min-height: calc(100vh - 60px);
+  background-color: #1e1e1e;
   display: flex;
   flex-direction: column;
-  flex-wrap: nowrap;
-  align-content: center;
-  justify-content: flex-start;
-  overflow: hidden;
 }
 
+/* Section Header (Title + Analysis Button) */
 .containtBoxDiv1 {
-  position: relative;
-  height: 8%;
   display: flex;
   flex-direction: row;
-  flex-wrap: nowrap;
-  align-content: center;
-  justify-content: flex-start;
   align-items: center;
+  justify-content: space-between;
+  padding: 16px 24px;
+  border-bottom: 1px solid #262626;
 }
 
 .containtBoxDiv1Div1 {
-  position: relative;
-  height: 100%;
-  width: 38%;
   display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  align-content: center;
-  justify-content: flex-start;
   align-items: center;
 }
+
 .sectionName {
-  position: relative;
-  color: white;
-  font-size: 1.7rem;
-  margin-left: 4%;
+  color: #ffffff;
+  font-size: 22px;
+  font-weight: 600;
 }
 
 .containtBoxDiv1Div2 {
-  position: relative;
-  height: 100%;
-  width: 61%;
   display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  align-content: center;
-  justify-content: center;
-
   align-items: center;
 }
 
 .analysisButton {
-  position: relative;
-  height: 60%;
-  width: 15%;
-  border-radius: 1rem;
-  /* border: 0.1rem solid white; */
-  background-color: rgba(24, 54, 133, 1);
-  color: white;
+  height: 38px;
+  padding: 0 22px;
+  border-radius: 8px;
+  border: none;
+  background-color: #183685;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.1s;
 }
+
+.analysisButton:hover {
+  background-color: #244ab8;
+}
+
+.analysisButton:active {
+  transform: scale(0.98);
+}
+
+/* Charts Grid */
 .containtBoxDiv2 {
-  position: relative;
-  height: 82%;
+  padding: 20px 24px 40px 24px;
   display: flex;
   flex-direction: column;
-  flex-wrap: nowrap;
-  align-content: center;
-  justify-content: flex-start;
-  row-gap: 5px;
+  gap: 18px;
 }
 
-.containtBoxDiv2Div1 {
-  position: relative;
-  height: 50%;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  align-content: center;
-  justify-content: flex-start;
-  align-items: center;
-  column-gap: 5px;
-}
-
+.containtBoxDiv2Div1,
 .containtBoxDiv2Div2 {
-  position: relative;
-  height: 50%;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  width: 100%;
+}
+
+@media (max-width: 1280px) {
+  .containtBoxDiv2Div1,
+  .containtBoxDiv2Div2 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .containtBoxDiv2Div1,
+  .containtBoxDiv2Div2 {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Individual Chart Cards */
+.row1chart1,
+.row1chart2,
+.row1chart3,
+.row1chart4 {
+  background-color: #0c0c0c;
+  border: 1px solid #282828;
+  border-radius: 12px;
+  min-height: 270px;
+  height: 270px;
+  width: 100% !important;
   display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  align-content: center;
+  flex-direction: column;
+  align-items: center;
   justify-content: center;
-  align-items: flex-start;
-  column-gap: 5px;
+  padding: 12px;
+  position: relative;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
 }
 
+/* KPI Summary Card */
 .row1chart1 {
-  position: relative;
-  background-color: #000000;
-  height: 100%;
-  width: 19%;
-  border-radius: 16px;
-  background-color: #000000;
   display: flex;
   flex-direction: column;
-  flex-wrap: nowrap;
-  align-content: center;
-  justify-content: flex-start;
-  align-items: center;
+  justify-content: space-between;
+  padding: 12px;
 }
 
-.percentageSection1 {
-  position: relative;
-  height: 50%;
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  align-content: center;
-  justify-content: space-evenly;
-  align-items: center;
-}
-
+.percentageSection1,
 .percentageSection2 {
-  position: relative;
-  height: 50%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
   width: 100%;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  align-content: center;
-  justify-content: space-evenly;
-  align-items: flex-start;
+  height: 48%;
 }
-.PercentageBoxWhite {
-  position: relative;
-  height: 70%;
-  width: 40%;
-  background-color: aliceblue;
-  border-radius: 16px;
+
+.PercentageBoxWhite,
+.PercentageBoxYellow {
+  border-radius: 10px;
   display: flex;
   flex-direction: column;
-  flex-wrap: nowrap;
-  align-content: center;
-  justify-content: flex-start;
   align-items: center;
+  justify-content: center;
+  padding: 8px 4px;
+  width: 100%;
+  height: 100%;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.PercentageBoxWhite {
+  background-color: #f0f4f8;
 }
 
 .PercentageBoxYellow {
-  position: relative;
-  height: 70%;
-  width: 40%;
-  background-color: rgba(255, 227, 37, 1);
-  border-radius: 16px;
-  display: flex;
-  flex-direction: column;
-  flex-wrap: nowrap;
-  align-content: center;
-  justify-content: flex-start;
-  align-items: center;
+  background-color: #ffe325;
 }
 
 .BoxValue {
-  position: relative;
-  height: 70%;
-  width: 100%;
-  /* background-color: aqua; */
-  border-radius: 1rem;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  justify-content: center;
-  align-items: flex-end;
-  font-size: 6vh;
-  align-content: flex-end;
+  font-size: 26px;
+  font-weight: 700;
+  color: #111111;
+  line-height: 1.1;
 }
 
 .BoxValueName {
-  position: relative;
-  height: 30%;
-  width: 100%;
-  border-radius: 1rem;
-  /* background-color: blue; */
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  align-content: center;
-  justify-content: center;
-  align-items: center;
-  font-size: 1.6vh;
-}
-
-.row1chart2 {
-  position: relative;
-  height: 100%;
-  width: 27%;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  align-content: center;
-  justify-content: center;
-  align-items: center;
-  border-radius: 16px;
-  background-color: #000000;
-  border-radius: 16px;
-  background-color: #000000;
-  border-radius: 16px;
-  background-color: #000000;
-}
-
-#myChart {
-  color: white;
-  position: relative;
-  height: 90%;
-  width: 90%;
-  background-color: darkslateblue;
-  z-index: 200;
-}
-.row1chart3 {
-  position: relative;
-  height: 100%;
-  width: 27%;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  align-content: center;
-  justify-content: center;
-  align-items: center;
-  border-radius: 16px;
-  background-color: #000000;
-  border-radius: 16px;
-  background-color: #000000;
-}
-.row1chart4 {
-  position: relative;
-  height: 100%;
-  width: 27%;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  align-content: center;
-  justify-content: center;
-  align-items: center;
-  border-radius: 16px;
-  background-color: #000000;
-  border-radius: 16px;
-  background-color: #000000;
-}
-
-#row1chart2 {
-  width: 26%;
-}
-
-#row1chart3 {
-  width: 26%;
-}
-
-#row2chart1 {
-  width: 25%;
-}
-
-#row2chart2 {
-  width: 25%;
-}
-#row2chart3 {
-  width: 25%;
-}
-
-#row2chart4 {
-  width: 23%;
+  font-size: 11px;
+  font-weight: 600;
+  color: #333333;
+  text-align: center;
+  margin-top: 4px;
+  line-height: 1.2;
 }

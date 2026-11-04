@@ -19,7 +19,7 @@ export async function renderCharts() {
 
     // ---------- INFO BOXES ----------
     setText("BoxValue1", data.coal_Surfaceminer_Minerno);
-    setText("BoxValueName1", "No. Surface Miner");
+    setText("BoxValueName1", "Surface Miner No.");
 
     setText(
       "BoxValue2",
