@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "1075088195518",
-    "project_id": "black-gold-shift",
-    "storage_bucket": "black-gold-shift.firebasestorage.app"
+    "project_number": "988921262702",
+    "project_id": "black-gold-shift-2-hosted",
+    "storage_bucket": "black-gold-shift-2-hosted.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1075088195518:android:c4116ed85b0ce1c68043ef",
+        "mobilesdk_app_id": "1:988921262702:android:2f4b4a72f548f0df6eac7f",
         "android_client_info": {
           "package_name": "com.example.myapplication"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyCbiOJr9oRfyqoNSD-k7qpJ__og1E6oQOg"
+          "current_key": "AIzaSyD7tbcvquDW_qMz2Vx3kYiaKzkLX7oCI68"
         }
       ],
       "services": {

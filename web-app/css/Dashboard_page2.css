@@ -1,0 +1,255 @@
+@import url("https://fonts.googleapis.com/css2?family=Cantora+One&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap");
+
+.cantora-one-regular {
+  font-family: "Cantora One", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.poppins-semibold {
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+  font-style: normal;
+}
+
+/* Custom Scrollbar Styles */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #444;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #666;
+}
+
+::-webkit-scrollbar-track {
+  background-color: #1a1a1a;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #121212;
+  color: #ffffff;
+  min-height: 100vh;
+  overflow-x: hidden;
+  overflow-y: auto;
+  font-family: "Poppins", sans-serif;
+}
+
+/* Top Navigation Bar */
+.navbar {
+  position: fixed;
+  height: 60px;
+  width: 100%;
+  top: 0;
+  left: 0;
+  background-color: rgba(8, 20, 52, 1);
+  z-index: 100;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 0 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+.navDiv1 {
+  display: flex;
+  align-items: center;
+  margin-right: 14px;
+}
+
+.navDiv1 img {
+  height: 38px;
+  width: auto;
+}
+
+.navDiv2 {
+  display: flex;
+  align-items: center;
+  flex-grow: 1;
+}
+
+.websiteName {
+  font-size: 22px;
+  color: #ffffff;
+  letter-spacing: 0.5px;
+}
+
+/* Sidebar */
+.sidebar {
+  position: fixed;
+  top: 60px;
+  left: 0;
+  bottom: 0;
+  width: 68px;
+  background-color: #1a1a1a;
+  z-index: 90;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 18px;
+  gap: 16px;
+  border-right: 1px solid #262626;
+}
+
+.sidebarButtons {
+  width: 44px;
+  height: 44px;
+  background-color: #0d0d0d;
+  border: 1px solid #333333;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.2s, border-color 0.2s, transform 0.1s;
+}
+
+.sidebarButtons:hover {
+  background-color: #262626;
+  border-color: #555555;
+}
+
+.sidebarButtons.active {
+  background-color: #183685;
+  border-color: #4285f4;
+}
+
+.material-symbols-outlined {
+  font-size: 22px !important;
+  color: #ffffff;
+}
+
+/* Main Content Container */
+.containtBox {
+  margin-left: 68px;
+  margin-top: 60px;
+  min-height: calc(100vh - 60px);
+  background-color: #1e1e1e;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Section Header (Title + Buttons) */
+.containtBoxDiv1 {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 24px;
+  border-bottom: 1px solid #262626;
+}
+
+.containtBoxDiv1Div1 {
+  display: flex;
+  align-items: center;
+}
+
+.sectionName {
+  color: #ffffff;
+  font-size: 22px;
+  font-weight: 600;
+}
+
+.containtBoxDiv1Div2 {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.analysisButton {
+  height: 38px;
+  padding: 0 20px;
+  border-radius: 8px;
+  border: none;
+  background-color: #183685;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.1s;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.analysisButton:hover {
+  background-color: #244ab8;
+}
+
+.analysisButton:active {
+  transform: scale(0.98);
+}
+
+.analysisButton:disabled {
+  background-color: #444444;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+/* Table Section */
+.containtBoxDiv2 {
+  padding: 24px 24px 48px 24px;
+  display: flex;
+  justify-content: center;
+  background-color: transparent;
+  width: 100%;
+}
+
+.table-container {
+  width: 100%;
+  max-width: 1100px;
+  background-color: #ffffff;
+  color: #111111;
+  border-radius: 8px;
+  overflow-x: auto;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+  border: 1px solid #333333;
+}
+
+.table-title {
+  text-align: center;
+  font-weight: bold;
+  font-size: 18px;
+  padding: 12px;
+  background-color: #111827;
+  color: #ffffff;
+  letter-spacing: 0.5px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  border: 1px solid #d1d5db;
+  padding: 8px 10px;
+  text-align: center;
+  font-size: 13px;
+}
+
+th {
+  background-color: #e5e7eb;
+  color: #111827;
+  font-weight: 600;
+}
+
+.section-title {
+  background-color: #1f2937;
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 14px;
+}

@@ -3,44 +3,37 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="shortcut icon" href="./Assets-MainPage/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="./assets/favicon.ico" type="image/x-icon">
     <title>Dashboard - Analysis Page</title>
-    <link rel="stylesheet" href="Dashboard_page1.css" />
+    <link rel="stylesheet" href="css/Dashboard_page1.css" />
     <link
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@40,400,0,0&family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&display=swap"
     />
-    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/handlebars/dist/handlebars.min.js"></script>
-    <script type="module" src="/firebase/firebase.js"></script>
     <!-- Chart.js CDN -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script type="module" src="./chartConfig.js"></script>
-    <script type="module" src="./eventHandlers.js"></script>
+    <script type="module" src="./js/chartConfig.js"></script>
+    <script type="module" src="./js/eventHandlers.js"></script>
   </head>
-  <body>
-    <!-- The rest of your HTML content remains unchanged -->
   <body>
     <div class="masterContainer">
       <nav class="navbar">
         <div class="navDiv1">
-          <img src="./Assets-MainPage/logo.png" alt="" />
+          <img src="./assets/logo.png" alt="" />
         </div>
         <div class="navDiv2">
-          <p class="websiteName cantora-one-regular">
-            Black Gold Shift 
-          </p>
-        </div>
-        <div class="navDiv3">
-          <div class="accountProfile"></div>
+          <p class="websiteName cantora-one-regular">Black Gold Shift</p>
         </div>
       </nav>
       <div class="sidebar">
-        <button type="button" class="sidebarButtons" id="monitoringButton">
+        <button type="button" class="sidebarButtons active" id="monitoringButton" aria-current="page" title="Analysis Dashboard">
           <span class="material-symbols-outlined">monitoring</span>
         </button>
-        <button type="button" class="sidebarButtons" id="tableSectionButton">
+        <button type="button" class="sidebarButtons" id="tableSectionButton" title="Shift Log">
           <span class="material-symbols-outlined">table_chart</span>
+        </button>
+        <button type="button" class="sidebarButtons" id="seedDataButton" title="Test Seeder">
+          <span class="material-symbols-outlined">database</span>
         </button>
       </div>
       <div class="containtBox">
