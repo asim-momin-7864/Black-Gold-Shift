@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
@@ -39,7 +39,6 @@
       h4 {
         margin: 16px 0 6px 0;
         padding-left: 8px;
-        border-left: 3px solid #f5c400;
         color: #222;
         font-size: 14px;
       }
@@ -58,7 +57,6 @@
         padding: 10px 14px;
         background: #fafafa;
         border: 1px solid #e8e8e8;
-        border-left: 4px solid #f5c400;
         border-radius: 4px;
       }
       .auth-bar input {
@@ -129,7 +127,8 @@
         background: #fff;
         font-size: 13px;
       }
-      th, td {
+      th,
+      td {
         border: 1px solid #e6e8eb;
         padding: 7px 12px;
         text-align: left;
@@ -154,8 +153,12 @@
     </style>
   </head>
   <body>
+    <a href="./Dashboard_page1.html" style="color: #666; text-decoration: none; font-size: 13px; display: inline-block; margin-bottom: 12px; font-weight: bold;">&larr; Back to Dashboard</a>
     <h2>Shift Data Test Seeder</h2>
-    <p class="subtitle">Proxy for Android App: sends shift data for today into Firestore (collection: ShiftLog)</p>
+    <p class="subtitle">
+      Proxy for Android App: sends shift data for today into Firestore
+      (collection: ShiftLog)
+    </p>
 
     <!-- Controls Box -->
     <div class="panel">
@@ -165,18 +168,34 @@
 
       <!-- Simple Authentication Bar -->
       <div class="auth-bar">
-        <span id="userStatus" style="font-size: 13px; font-weight: bold; margin-right: 10px;">Checking auth...</span>
+        <span
+          id="userStatus"
+          style="font-size: 13px; font-weight: bold; margin-right: 10px"
+          >Checking auth...</span
+        >
         <span id="authInputs">
           <input type="email" id="authEmail" placeholder="Email" />
           <input type="password" id="authPassword" placeholder="Password" />
-          <button type="button" id="loginBtn" class="btn-secondary">Sign In</button>
+          <button type="button" id="loginBtn" class="btn-secondary">
+            Sign In
+          </button>
         </span>
-        <button type="button" id="logoutBtn" class="btn-secondary" style="display: none;">Sign Out</button>
+        <button
+          type="button"
+          id="logoutBtn"
+          class="btn-secondary"
+          style="display: none"
+        >
+          Sign Out
+        </button>
       </div>
 
-      <div style="margin-top: 14px;">
+      <div style="margin-top: 14px">
         <button id="sendBtn">Send Shift Data to Firestore</button>
-        <span id="loadingArea" style="display: none; margin-left: 10px; font-size: 13px; color: #555;">
+        <span
+          id="loadingArea"
+          style="display: none; margin-left: 10px; font-size: 13px; color: #555"
+        >
           <span class="spinner"></span> Sending...
         </span>
         <span id="statusMessage"></span>
@@ -189,59 +208,187 @@
 
       <h4>Washery Section</h4>
       <table>
-        <tr><th>Field Name</th><th>Firestore Field Key</th><th>Value</th></tr>
-        <tr><td>Raw Coal Fed</td><td class="key">washery_Rawcoal</td><td class="val">1500</td></tr>
-        <tr><td>Clean Coal</td><td class="key">washery_Cleancoal</td><td class="val">1200</td></tr>
-        <tr><td>Middling</td><td class="key">washery_Midding</td><td class="val">180</td></tr>
-        <tr><td>Rejects</td><td class="key">washery_Rejected</td><td class="val">70</td></tr>
-        <tr><td>Slurry</td><td class="key">washery_Slurry</td><td class="val">50</td></tr>
+        <tr>
+          <th>Field Name</th>
+          <th>Firestore Field Key</th>
+          <th>Value</th>
+        </tr>
+        <tr>
+          <td>Raw Coal Fed</td>
+          <td class="key">washery_Rawcoal</td>
+          <td class="val">1500</td>
+        </tr>
+        <tr>
+          <td>Clean Coal</td>
+          <td class="key">washery_Cleancoal</td>
+          <td class="val">1200</td>
+        </tr>
+        <tr>
+          <td>Middling</td>
+          <td class="key">washery_Midding</td>
+          <td class="val">180</td>
+        </tr>
+        <tr>
+          <td>Rejects</td>
+          <td class="key">washery_Rejected</td>
+          <td class="val">70</td>
+        </tr>
+        <tr>
+          <td>Slurry</td>
+          <td class="key">washery_Slurry</td>
+          <td class="val">50</td>
+        </tr>
       </table>
 
       <h4>Coal Dispatch</h4>
       <table>
-        <tr><th>Field Name</th><th>Firestore Field Key</th><th>Value</th></tr>
-        <tr><td>Rail Grade</td><td class="key">dispatch_Rail_Grade</td><td class="val">A</td></tr>
-        <tr><td>Rail Target</td><td class="key">dispatch_Rail_Target</td><td class="val">500</td></tr>
-        <tr><td>Rail Actual</td><td class="key">dispatch_Rail_Actual</td><td class="val">420</td></tr>
-        <tr><td>Road Grade</td><td class="key">dispatch_Road_Grade</td><td class="val">B</td></tr>
-        <tr><td>Road Target</td><td class="key">dispatch_Road_Target</td><td class="val">350</td></tr>
-        <tr><td>Road Actual</td><td class="key">dispatch_Road_Actual</td><td class="val">310</td></tr>
+        <tr>
+          <th>Field Name</th>
+          <th>Firestore Field Key</th>
+          <th>Value</th>
+        </tr>
+        <tr>
+          <td>Rail Grade</td>
+          <td class="key">dispatch_Rail_Grade</td>
+          <td class="val">A</td>
+        </tr>
+        <tr>
+          <td>Rail Target</td>
+          <td class="key">dispatch_Rail_Target</td>
+          <td class="val">500</td>
+        </tr>
+        <tr>
+          <td>Rail Actual</td>
+          <td class="key">dispatch_Rail_Actual</td>
+          <td class="val">420</td>
+        </tr>
+        <tr>
+          <td>Road Grade</td>
+          <td class="key">dispatch_Road_Grade</td>
+          <td class="val">B</td>
+        </tr>
+        <tr>
+          <td>Road Target</td>
+          <td class="key">dispatch_Road_Target</td>
+          <td class="val">350</td>
+        </tr>
+        <tr>
+          <td>Road Actual</td>
+          <td class="key">dispatch_Road_Actual</td>
+          <td class="val">310</td>
+        </tr>
       </table>
 
       <h4>Surface Miner</h4>
       <table>
-        <tr><th>Field Name</th><th>Firestore Field Key</th><th>Value</th></tr>
-        <tr><td>Serial No</td><td class="key">coal_Surfaceminer_Serialno</td><td class="val">1</td></tr>
-        <tr><td>Miner No</td><td class="key">coal_Surfaceminer_Minerno</td><td class="val">3</td></tr>
-        <tr><td>Bench No</td><td class="key">coal_Surfaceminer_Benchno</td><td class="val">SMB1</td></tr>
-        <tr><td>Coal Cut Quantity</td><td class="key">coal_Surfaceminer_Coalquantity</td><td class="val">150</td></tr>
+        <tr>
+          <th>Field Name</th>
+          <th>Firestore Field Key</th>
+          <th>Value</th>
+        </tr>
+        <tr>
+          <td>Serial No</td>
+          <td class="key">coal_Surfaceminer_Serialno</td>
+          <td class="val">1</td>
+        </tr>
+        <tr>
+          <td>Miner No</td>
+          <td class="key">coal_Surfaceminer_Minerno</td>
+          <td class="val">3</td>
+        </tr>
+        <tr>
+          <td>Bench No</td>
+          <td class="key">coal_Surfaceminer_Benchno</td>
+          <td class="val">SMB1</td>
+        </tr>
+        <tr>
+          <td>Coal Cut Quantity</td>
+          <td class="key">coal_Surfaceminer_Coalquantity</td>
+          <td class="val">150</td>
+        </tr>
       </table>
 
       <h4>Overburden & Excavation</h4>
       <table>
-        <tr><th>Field Name</th><th>Firestore Field Key</th><th>Value</th></tr>
-        <tr><td>Shovel No</td><td class="key">overburden_Shovel_Shovelno</td><td class="val">EX-01</td></tr>
-        <tr><td>Shovel Solid Qty</td><td class="key">overburden_Shovel_Solidquantity</td><td class="val">1100</td></tr>
-        <tr><td>Shovel Rehandling Qty</td><td class="key">overburden_Shovel_Rehandalingquantity</td><td class="val">160</td></tr>
-        <tr><td>Tripper No</td><td class="key">overburden_Tripper_Tripperno</td><td class="val">TP-01</td></tr>
-        <tr><td>Tripper Trips</td><td class="key">overburden_Tripper_Tripsno</td><td class="val">120</td></tr>
-        <tr><td>Tripper Soil Qty</td><td class="key">overburden_Tripper_Soilquantity</td><td class="val">900</td></tr>
+        <tr>
+          <th>Field Name</th>
+          <th>Firestore Field Key</th>
+          <th>Value</th>
+        </tr>
+        <tr>
+          <td>Shovel No</td>
+          <td class="key">overburden_Shovel_Shovelno</td>
+          <td class="val">EX-01</td>
+        </tr>
+        <tr>
+          <td>Shovel Solid Qty</td>
+          <td class="key">overburden_Shovel_Solidquantity</td>
+          <td class="val">1100</td>
+        </tr>
+        <tr>
+          <td>Shovel Rehandling Qty</td>
+          <td class="key">overburden_Shovel_Rehandalingquantity</td>
+          <td class="val">160</td>
+        </tr>
+        <tr>
+          <td>Tripper No</td>
+          <td class="key">overburden_Tripper_Tripperno</td>
+          <td class="val">TP-01</td>
+        </tr>
+        <tr>
+          <td>Tripper Trips</td>
+          <td class="key">overburden_Tripper_Tripsno</td>
+          <td class="val">120</td>
+        </tr>
+        <tr>
+          <td>Tripper Soil Qty</td>
+          <td class="key">overburden_Tripper_Soilquantity</td>
+          <td class="val">900</td>
+        </tr>
       </table>
 
       <h4>Drilling & Explosives</h4>
       <table>
-        <tr><th>Field Name</th><th>Firestore Field Key</th><th>Value</th></tr>
-        <tr><td>OB Holes Drilled</td><td class="key">overburden_Drill_Noofshotholesdrilled</td><td class="val">42</td></tr>
-        <tr><td>OB Drilling Meters</td><td class="key">overburden_Drill_Drillingmeter</td><td class="val">128</td></tr>
-        <tr><td>Coal Holes Drilled</td><td class="key">coal_Drill_Noofshotholesdrilled</td><td class="val">34</td></tr>
-        <tr><td>Coal Drilling Meters</td><td class="key">coal_Drill_Drillingmeter</td><td class="val">96</td></tr>
-        <tr><td>OB Explosives Charged</td><td class="key">overburden_Explosives_Explosivescharged</td><td class="val">520</td></tr>
-        <tr><td>Coal Explosives Charged</td><td class="key">coal_Explosives_Explosivescharged</td><td class="val">410</td></tr>
+        <tr>
+          <th>Field Name</th>
+          <th>Firestore Field Key</th>
+          <th>Value</th>
+        </tr>
+        <tr>
+          <td>OB Holes Drilled</td>
+          <td class="key">overburden_Drill_Noofshotholesdrilled</td>
+          <td class="val">42</td>
+        </tr>
+        <tr>
+          <td>OB Drilling Meters</td>
+          <td class="key">overburden_Drill_Drillingmeter</td>
+          <td class="val">128</td>
+        </tr>
+        <tr>
+          <td>Coal Holes Drilled</td>
+          <td class="key">coal_Drill_Noofshotholesdrilled</td>
+          <td class="val">34</td>
+        </tr>
+        <tr>
+          <td>Coal Drilling Meters</td>
+          <td class="key">coal_Drill_Drillingmeter</td>
+          <td class="val">96</td>
+        </tr>
+        <tr>
+          <td>OB Explosives Charged</td>
+          <td class="key">overburden_Explosives_Explosivescharged</td>
+          <td class="val">520</td>
+        </tr>
+        <tr>
+          <td>Coal Explosives Charged</td>
+          <td class="key">coal_Explosives_Explosivescharged</td>
+          <td class="val">410</td>
+        </tr>
       </table>
     </div>
 
     <script type="module">
-      import { auth, db } from "./public/js/firebase.js";
+      import { auth, db } from "./js/firebase.js";
       import {
         signInWithEmailAndPassword,
         signOut,
@@ -365,7 +512,8 @@
       // Monitor sign-in state
       onAuthStateChanged(auth, (user) => {
         if (user) {
-          userStatus.textContent = "Signed in as: " + user.email + " (UID: " + user.uid + ")";
+          userStatus.textContent =
+            "Signed in as: " + user.email + " (UID: " + user.uid + ")";
           userStatus.style.color = "green";
           authInputs.style.display = "none";
           logoutBtn.style.display = "inline";
@@ -379,7 +527,11 @@
 
       loginBtn.onclick = async function () {
         try {
-          await signInWithEmailAndPassword(auth, authEmail.value, authPassword.value);
+          await signInWithEmailAndPassword(
+            auth,
+            authEmail.value,
+            authPassword.value,
+          );
         } catch (err) {
           alert("Sign in failed: " + err.message);
         }

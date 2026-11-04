@@ -15,3 +15,7 @@ document
   .addEventListener("click", async () => {
     await renderCharts();
   });
+
+document.getElementById("seedDataButton")?.addEventListener("click", () => {
+  window.location.href = "./seed.html";
+});

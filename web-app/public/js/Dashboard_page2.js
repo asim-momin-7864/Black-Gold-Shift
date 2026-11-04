@@ -74,3 +74,8 @@ const handleMonitoringButtonClick = () => {
 document
   .getElementById("monitoringButton")
   .addEventListener("click", handleMonitoringButtonClick);
+
+// Event listener for the test seeder button
+document.getElementById("seedDataButton")?.addEventListener("click", () => {
+  window.location.href = "./seed.html";
+});
