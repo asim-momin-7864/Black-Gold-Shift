@@ -5,11 +5,9 @@ service cloud.firestore {
     function allowedUser() {
       return request.auth != null
         && request.auth.uid in [
-          'qg5XLg3uD6UhqKvoHl5mWMl49gI3',
-          'ekUb99rCCuhroPXEizuM0swBAv02',
-          'Bi8qZgxo7ufI7fzB0GvrYpxlENC3',
-          'UID_OF_YOU',
-          'UID_OF_SUJAL'
+          'qg5XLg3uD6UhqKvoHl5mWMl49gI3', // admin444@example.com
+          'hGKqi5Ghh8fSmbhYAlwnw5pj9A63', // worker1@example.com
+          'Bi8qZgxo7ufI7fzB0GvrYpxlENC3'  // testworker@example.com
         ];
     }
 
