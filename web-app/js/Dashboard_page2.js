@@ -33,17 +33,20 @@ onAuthStateChanged(auth, (user) => {
 
       data["cleanCoalPercent"] = percent(
         data.washery_Cleancoal,
-        data.washery_Rawcoal
+        data.washery_Rawcoal,
       );
       data["middlingPercent"] = percent(
         data.washery_Midding,
-        data.washery_Rawcoal
+        data.washery_Rawcoal,
       );
       data["rejectedPercent"] = percent(
         data.washery_Rejected,
-        data.washery_Rawcoal
+        data.washery_Rawcoal,
       );
-      data["slurryPercent"] = percent(data.washery_Slurry, data.washery_Rawcoal);
+      data["slurryPercent"] = percent(
+        data.washery_Slurry,
+        data.washery_Rawcoal,
+      );
 
       // Compile the Handlebars template and render it
       const source = document.getElementById("table-template").innerHTML;
