@@ -1,4 +1,4 @@
-// Dashboard_page2.js (top)
+// Dashboard_page2.js
 import { db } from "./firebase.js";
 import { doc, getDoc } from "firebase/firestore";
 
@@ -11,13 +11,17 @@ const getFormattedDate = () => {
   return `${day}${month}${year}M`;
 };
 
+// Helper to calculate percentage safely
+const percent = (value, total) => {
+  if (!total || total === 0) return 0;
+  return (value / total) * 100;
+};
+
 // Function to fetch and display data from Firestore
 const fetchAndDisplayData = async () => {
   const formattedDate = getFormattedDate();
-  console.log(formattedDate);
-
-  // Document reference
   const docRef = doc(db, "ShiftLog", formattedDate);
+
   try {
     const docSnap = await getDoc(docRef);
     const data = docSnap.exists() ? docSnap.data() : null;
@@ -27,18 +31,19 @@ const fetchAndDisplayData = async () => {
       return;
     }
 
-    console.log("Data retrieved:", data);
-
-    let cleanCoalPercent =
-      (data.washery_Cleancoal / data.washery_Rawcoal) * 100;
-    let middlingPercent = (data.washery_Midding / data.washery_Rawcoal) * 100;
-    let rejectedPercent = (data.washery_Rejected / data.washery_Rawcoal) * 100;
-    let slurryPercent = (data.washery_Slurry / data.washery_Rawcoal) * 100;
-
-    data["cleanCoalPercent"] = cleanCoalPercent;
-    data["middlingPercent"] = middlingPercent;
-    data["rejectedPercent"] = rejectedPercent;
-    data["slurryPercent"] = slurryPercent;
+    data["cleanCoalPercent"] = percent(
+      data.washery_Cleancoal,
+      data.washery_Rawcoal
+    );
+    data["middlingPercent"] = percent(
+      data.washery_Midding,
+      data.washery_Rawcoal
+    );
+    data["rejectedPercent"] = percent(
+      data.washery_Rejected,
+      data.washery_Rawcoal
+    );
+    data["slurryPercent"] = percent(data.washery_Slurry, data.washery_Rawcoal);
 
     // Compile the Handlebars template and render it
     const source = document.getElementById("table-template").innerHTML;
@@ -46,25 +51,18 @@ const fetchAndDisplayData = async () => {
     const html = template(data);
     document.querySelector(".table-container").innerHTML = html;
   } catch (error) {
-    console.error("Error fetching document:");
+    console.error("Error fetching document:", error);
   }
 };
 
-// Event listener for the Generate PDF button
+// Event listener for the Generate Log button
 document
   .getElementById("Generate-Log-Button")
   .addEventListener("click", fetchAndDisplayData);
 
 // Function to handle navigation to the monitoring page
 const handleMonitoringButtonClick = () => {
-  const targetUrl = "./Dashboard_page1.html"; // Desired URL
-  const isCurrentUrl = window.location.href === targetUrl;
-
-  if (!isCurrentUrl) {
-    window.location.href = targetUrl;
-  } else {
-    alert("You are already on the target page!");
-  }
+  window.location.href = "./Dashboard_page1.html";
 };
 
 // Event listener for the monitoring button
