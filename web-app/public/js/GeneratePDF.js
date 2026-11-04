@@ -1,21 +1,6 @@
 // GeneratePDF.js
-// NOTE: PDF generation + local download is active.
-// Historically this file also uploaded PDFs to Firebase Storage
-// to provide a download link to Android users. That upload step
-// is currently DISABLED (commented) because Firebase Storage
-// is no longer available on the free plan for this project.
 
-// The code below generates the PDF (jsPDF + html2canvas), saves locally,
-// and previously called uploadPDFToFirebase(...) to upload to Storage.
-// That upload call + upload function are retained but commented-out
-
-import /* storage */ "../firebase/firebase.js"; // storage import kept but commented in usage
-// CDN Storage functions are left available (commented) in case of restore:
-import {
-  ref,
-  uploadBytes,
-  getDownloadURL,
-} from "https://www.gstatic.com/firebasejs/12.6.0/firebase-storage.js";
+import "./firebase.js";
 
 document
   .getElementById("GeneratePDFButton")
@@ -78,21 +63,7 @@ document
         heightLeft -= pageHeight;
       }
 
-      const pdfBlob = pdf.output("blob");
-
-      // === LOCAL DOWNLOAD (active) ===
-      // This downloads directly to the user's device (zero infra).
+      // === LOCAL DOWNLOAD ===
       pdf.save(`${todaysDate}.pdf`);
-
-      // === UPLOAD TO CLOUD (DISABLED) ===
-      // Historically, we uploaded the PDF to Firebase Storage and saved
-      // the download URL in Firestore so Android users could fetch it.
-      // That upload step is currently disabled because Firebase Storage
-      // billing changed and we removed the free tier.
-
-      // Informational log so reviewers understand the current behaviour:
-      console.info(
-        "PDF generated and saved locally. Cloud upload is DISABLED (commented) — see README for details."
-      );
     });
   });

@@ -1,5 +1,5 @@
 // Dashboard_page2.js (top)
-import { db } from "../firebase/firebase.js";
+import { db } from "./firebase.js";
 import {
   doc,
   getDoc,

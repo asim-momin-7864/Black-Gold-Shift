@@ -1,5 +1,5 @@
 // login.js (top)
-import { auth } from "../firebase/firebase.js";
+import { auth } from "./firebase.js";
 import { signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-auth.js";
 
 // Login Function
