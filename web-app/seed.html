@@ -2,330 +2,156 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Black Gold Shift – Android Proxy Seeder</title>
+    <title>Shift Data Test Seeder</title>
     <style>
-      * {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
-      }
       body {
-        background-color: #121212;
-        color: #f0f0f0;
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-        padding: 24px 16px;
+        font-family: Arial, sans-serif;
+        margin: 20px;
+        background-color: #fafafa;
+        color: #333;
       }
-      .container {
-        max-width: 900px;
-        margin: 0 auto;
+      h2 {
+        margin-bottom: 5px;
       }
-      header {
-        text-align: center;
-        margin-bottom: 24px;
-      }
-      h1 {
-        color: #f5c400;
-        font-size: 24px;
-        margin-bottom: 6px;
-      }
-      p.subtitle {
-        color: #aaa;
+      p {
+        margin-top: 0;
+        color: #666;
         font-size: 14px;
       }
-      /* Top Action Box */
-      .action-card {
-        background: #1e1e1e;
-        border: 1px solid #333;
-        border-radius: 8px;
-        padding: 20px;
-        margin-bottom: 24px;
+      .panel {
+        background: #fff;
+        border: 1px solid #ccc;
+        padding: 15px;
+        margin-bottom: 20px;
       }
-      .action-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        flex-wrap: wrap;
-        gap: 12px;
-        margin-bottom: 16px;
-      }
-      .doc-badge {
-        font-size: 13px;
-        color: #ccc;
-      }
-      .doc-id {
-        color: #f5c400;
-        font-family: monospace;
-        font-weight: bold;
-        font-size: 15px;
-      }
-      button.btn-send {
-        background: #f5c400;
-        color: #000;
-        font-size: 15px;
-        font-weight: 700;
-        border: none;
-        border-radius: 6px;
-        padding: 12px 24px;
+      button {
+        padding: 8px 16px;
+        font-size: 14px;
         cursor: pointer;
-        transition: background 0.2s, opacity 0.2s;
       }
-      button.btn-send:hover {
-        background: #ffd84d;
-      }
-      button.btn-send:disabled {
-        opacity: 0.5;
+      button:disabled {
         cursor: not-allowed;
+        opacity: 0.6;
       }
-      /* Progress bar */
-      .progress-container {
+      .spinner {
+        display: inline-block;
+        width: 14px;
+        height: 14px;
+        border: 2px solid #ccc;
+        border-top-color: #333;
+        border-radius: 50%;
+        animation: spin 0.6s linear infinite;
+        vertical-align: middle;
+        margin-right: 5px;
+      }
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+      #statusMessage {
+        margin-left: 10px;
+        font-weight: bold;
+      }
+      table {
         width: 100%;
-        background: #2a2a2a;
-        border-radius: 4px;
-        height: 10px;
-        overflow: hidden;
-        margin-bottom: 10px;
+        border-collapse: collapse;
+        margin-top: 10px;
+        margin-bottom: 15px;
+        background: #fff;
       }
-      .progress-bar {
-        width: 0%;
-        height: 100%;
-        background: #f5c400;
-        transition: width 0.3s ease;
-      }
-      .status-text {
+      th, td {
+        border: 1px solid #ddd;
+        padding: 6px 10px;
+        text-align: left;
         font-size: 13px;
-        color: #aaa;
       }
-      .status-text.success {
-        color: #2ed573;
-        font-weight: 600;
+      th {
+        background-color: #f2f2f2;
       }
-      .status-text.error {
-        color: #ff4757;
-        font-weight: 600;
+      td.val {
+        font-weight: bold;
+        color: #111;
       }
-      /* Data Grid */
-      .grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
-        gap: 16px;
-      }
-      .section-card {
-        background: #1a1a1a;
-        border: 1px solid #2d2d2d;
-        border-radius: 8px;
-        padding: 16px;
-      }
-      .section-card h2 {
-        font-size: 15px;
-        color: #f5c400;
-        margin-bottom: 12px;
-        border-bottom: 1px solid #2d2d2d;
-        padding-bottom: 6px;
-      }
-      .field-row {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 6px 0;
-        font-size: 13px;
-        border-bottom: 1px dotted #262626;
-      }
-      .field-row:last-child {
-        border-bottom: none;
-      }
-      .field-label {
-        color: #bbb;
-      }
-      .field-value {
-        color: #fff;
-        font-weight: 600;
+      td.key {
         font-family: monospace;
-      }
-      .footer {
-        text-align: center;
         color: #666;
-        font-size: 12px;
-        margin-top: 32px;
       }
     </style>
   </head>
   <body>
-    <div class="container">
-      <header>
-        <h1>Black Gold Shift – Android Proxy Seeder</h1>
-        <p class="subtitle">
-          Simulates Android app data submission by sending shift data into Cloud Firestore
-        </p>
-      </header>
+    <h2>Shift Data Test Seeder</h2>
+    <p>Proxy for Android App: sends shift data for today into Firestore (collection: ShiftLog)</p>
 
-      <!-- Action Box -->
-      <div class="action-card">
-        <div class="action-header">
-          <div class="doc-badge">
-            Target Document ID: <span class="doc-id" id="docIdDisplay">Loading...</span>
-          </div>
-          <button id="sendBtn" class="btn-send">Send Shift Data to Firestore</button>
-        </div>
-
-        <div class="progress-container">
-          <div class="progress-bar" id="progressBar"></div>
-        </div>
-        <div class="status-text" id="statusText">Ready to send. Click the button to upload shift data.</div>
+    <!-- Controls Box -->
+    <div class="panel">
+      <div>
+        Target Document ID: <b id="docIdDisplay">...</b>
       </div>
-
-      <!-- Read-Only Data Preview -->
-      <div class="grid">
-        <!-- Washery Section -->
-        <div class="section-card">
-          <h2>Washery Section</h2>
-          <div class="field-row">
-            <span class="field-label">Raw Coal Fed</span>
-            <span class="field-value">1,500 T</span>
-          </div>
-          <div class="field-row">
-            <span class="field-label">Clean Coal</span>
-            <span class="field-value">1,200 T</span>
-          </div>
-          <div class="field-row">
-            <span class="field-label">Middling</span>
-            <span class="field-value">180 T</span>
-          </div>
-          <div class="field-row">
-            <span class="field-label">Rejects</span>
-            <span class="field-value">70 T</span>
-          </div>
-          <div class="field-row">
-            <span class="field-label">Slurry</span>
-            <span class="field-value">50 T</span>
-          </div>
-        </div>
-
-        <!-- Dispatch Section -->
-        <div class="section-card">
-          <h2>Coal Dispatch</h2>
-          <div class="field-row">
-            <span class="field-label">Rail Grade</span>
-            <span class="field-value">Grade A</span>
-          </div>
-          <div class="field-row">
-            <span class="field-label">Rail Target</span>
-            <span class="field-value">500 T</span>
-          </div>
-          <div class="field-row">
-            <span class="field-label">Rail Actual</span>
-            <span class="field-value">420 T</span>
-          </div>
-          <div class="field-row">
-            <span class="field-label">Road Grade</span>
-            <span class="field-value">Grade B</span>
-          </div>
-          <div class="field-row">
-            <span class="field-label">Road Target</span>
-            <span class="field-value">350 T</span>
-          </div>
-          <div class="field-row">
-            <span class="field-label">Road Actual</span>
-            <span class="field-value">310 T</span>
-          </div>
-        </div>
-
-        <!-- Surface Miner -->
-        <div class="section-card">
-          <h2>Surface Miner</h2>
-          <div class="field-row">
-            <span class="field-label">Serial No</span>
-            <span class="field-value">1</span>
-          </div>
-          <div class="field-row">
-            <span class="field-label">Miner No</span>
-            <span class="field-value">03</span>
-          </div>
-          <div class="field-row">
-            <span class="field-label">Bench No</span>
-            <span class="field-value">SMB1</span>
-          </div>
-          <div class="field-row">
-            <span class="field-label">Coal Cut Qty</span>
-            <span class="field-value">150 ('000 Te)</span>
-          </div>
-        </div>
-
-        <!-- Overburden Excavator & Tipper -->
-        <div class="section-card">
-          <h2>Overburden Movement</h2>
-          <div class="field-row">
-            <span class="field-label">Excavator No</span>
-            <span class="field-value">EX-01</span>
-          </div>
-          <div class="field-row">
-            <span class="field-label">Excavator Solid Qty</span>
-            <span class="field-value">1,100</span>
-          </div>
-          <div class="field-row">
-            <span class="field-label">Excavator Rehandling</span>
-            <span class="field-value">160</span>
-          </div>
-          <div class="field-row">
-            <span class="field-label">Tipper No</span>
-            <span class="field-value">TP-01</span>
-          </div>
-          <div class="field-row">
-            <span class="field-label">Tipper Trips</span>
-            <span class="field-value">120</span>
-          </div>
-          <div class="field-row">
-            <span class="field-label">Tipper Soil Qty</span>
-            <span class="field-value">900</span>
-          </div>
-        </div>
-
-        <!-- Drilling Metrics -->
-        <div class="section-card">
-          <h2>Drilling Section</h2>
-          <div class="field-row">
-            <span class="field-label">OB Shot Holes</span>
-            <span class="field-value">42</span>
-          </div>
-          <div class="field-row">
-            <span class="field-label">OB Drill Meters</span>
-            <span class="field-value">128 m</span>
-          </div>
-          <div class="field-row">
-            <span class="field-label">Coal Shot Holes</span>
-            <span class="field-value">34</span>
-          </div>
-          <div class="field-row">
-            <span class="field-label">Coal Drill Meters</span>
-            <span class="field-value">96 m</span>
-          </div>
-        </div>
-
-        <!-- Explosives Metrics -->
-        <div class="section-card">
-          <h2>Blasting & Explosives</h2>
-          <div class="field-row">
-            <span class="field-label">OB Holes Charged</span>
-            <span class="field-value">52</span>
-          </div>
-          <div class="field-row">
-            <span class="field-label">OB Explosives Charged</span>
-            <span class="field-value">520 T</span>
-          </div>
-          <div class="field-row">
-            <span class="field-label">Coal Holes Charged</span>
-            <span class="field-value">44</span>
-          </div>
-          <div class="field-row">
-            <span class="field-label">Coal Explosives Charged</span>
-            <span class="field-value">410 T</span>
-          </div>
-        </div>
+      <div style="margin-top: 12px;">
+        <button id="sendBtn">Send Shift Data to Firestore</button>
+        <span id="loadingArea" style="display: none; margin-left: 10px;">
+          <span class="spinner"></span> Sending...
+        </span>
+        <span id="statusMessage"></span>
       </div>
+    </div>
 
-      <div class="footer">
-        Black Gold Shift • Clean Test Data Seeder
-      </div>
+    <!-- Data Tables -->
+    <div class="panel">
+      <h3>Data to be sent</h3>
+
+      <h4>Washery Section</h4>
+      <table>
+        <tr><th>Field Name</th><th>Firestore Field Key</th><th>Value</th></tr>
+        <tr><td>Raw Coal Fed</td><td class="key">washery_Rawcoal</td><td class="val">1500</td></tr>
+        <tr><td>Clean Coal</td><td class="key">washery_Cleancoal</td><td class="val">1200</td></tr>
+        <tr><td>Middling</td><td class="key">washery_Midding</td><td class="val">180</td></tr>
+        <tr><td>Rejects</td><td class="key">washery_Rejected</td><td class="val">70</td></tr>
+        <tr><td>Slurry</td><td class="key">washery_Slurry</td><td class="val">50</td></tr>
+      </table>
+
+      <h4>Coal Dispatch</h4>
+      <table>
+        <tr><th>Field Name</th><th>Firestore Field Key</th><th>Value</th></tr>
+        <tr><td>Rail Grade</td><td class="key">dispatch_Rail_Grade</td><td class="val">A</td></tr>
+        <tr><td>Rail Target</td><td class="key">dispatch_Rail_Target</td><td class="val">500</td></tr>
+        <tr><td>Rail Actual</td><td class="key">dispatch_Rail_Actual</td><td class="val">420</td></tr>
+        <tr><td>Road Grade</td><td class="key">dispatch_Road_Grade</td><td class="val">B</td></tr>
+        <tr><td>Road Target</td><td class="key">dispatch_Road_Target</td><td class="val">350</td></tr>
+        <tr><td>Road Actual</td><td class="key">dispatch_Road_Actual</td><td class="val">310</td></tr>
+      </table>
+
+      <h4>Surface Miner</h4>
+      <table>
+        <tr><th>Field Name</th><th>Firestore Field Key</th><th>Value</th></tr>
+        <tr><td>Serial No</td><td class="key">coal_Surfaceminer_Serialno</td><td class="val">1</td></tr>
+        <tr><td>Miner No</td><td class="key">coal_Surfaceminer_Minerno</td><td class="val">3</td></tr>
+        <tr><td>Bench No</td><td class="key">coal_Surfaceminer_Benchno</td><td class="val">SMB1</td></tr>
+        <tr><td>Coal Cut Quantity</td><td class="key">coal_Surfaceminer_Coalquantity</td><td class="val">150</td></tr>
+      </table>
+
+      <h4>Overburden & Excavation</h4>
+      <table>
+        <tr><th>Field Name</th><th>Firestore Field Key</th><th>Value</th></tr>
+        <tr><td>Shovel No</td><td class="key">overburden_Shovel_Shovelno</td><td class="val">EX-01</td></tr>
+        <tr><td>Shovel Solid Qty</td><td class="key">overburden_Shovel_Solidquantity</td><td class="val">1100</td></tr>
+        <tr><td>Shovel Rehandling Qty</td><td class="key">overburden_Shovel_Rehandalingquantity</td><td class="val">160</td></tr>
+        <tr><td>Tripper No</td><td class="key">overburden_Tripper_Tripperno</td><td class="val">TP-01</td></tr>
+        <tr><td>Tripper Trips</td><td class="key">overburden_Tripper_Tripsno</td><td class="val">120</td></tr>
+        <tr><td>Tripper Soil Qty</td><td class="key">overburden_Tripper_Soilquantity</td><td class="val">900</td></tr>
+      </table>
+
+      <h4>Drilling & Explosives</h4>
+      <table>
+        <tr><th>Field Name</th><th>Firestore Field Key</th><th>Value</th></tr>
+        <tr><td>OB Holes Drilled</td><td class="key">overburden_Drill_Noofshotholesdrilled</td><td class="val">42</td></tr>
+        <tr><td>OB Drilling Meters</td><td class="key">overburden_Drill_Drillingmeter</td><td class="val">128</td></tr>
+        <tr><td>Coal Holes Drilled</td><td class="key">coal_Drill_Noofshotholesdrilled</td><td class="val">34</td></tr>
+        <tr><td>Coal Drilling Meters</td><td class="key">coal_Drill_Drillingmeter</td><td class="val">96</td></tr>
+        <tr><td>OB Explosives Charged</td><td class="key">overburden_Explosives_Explosivescharged</td><td class="val">520</td></tr>
+        <tr><td>Coal Explosives Charged</td><td class="key">coal_Explosives_Explosivescharged</td><td class="val">410</td></tr>
+      </table>
     </div>
 
     <script type="module">
@@ -335,7 +161,7 @@
         setDoc,
       } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-firestore.js";
 
-      // 1. Clean flat shift data matching Firestore schema
+      // 1. Shift log data object (matches Android app and dashboard)
       const sampleShiftData = {
         // Surface Miner
         coal_Surfaceminer_Serialno: 1,
@@ -358,7 +184,7 @@
         dispatch_Road_Target: 350,
         dispatch_Road_Actual: 310,
 
-        // Overburden Excavator (Shovel)
+        // Overburden Excavator
         overburden_Shovel_SIno: 1,
         overburden_Shovel_Shovelno: "EX-01",
         overburden_Shovel_Benchno: "B1",
@@ -425,47 +251,42 @@
         coal_Explosives_Explosiveblasted: 380,
       };
 
-      // 2. Helper to get document ID format: DDMMYYYY + "M"
-      function getShiftId(date = new Date()) {
-        const day = String(date.getDate()).padStart(2, "0");
-        const month = String(date.getMonth() + 1).padStart(2, "0");
-        const year = date.getFullYear();
+      // 2. Format today's document ID (DDMMYYYYM)
+      function getTodayShiftId() {
+        const today = new Date();
+        const day = String(today.getDate()).padStart(2, "0");
+        const month = String(today.getMonth() + 1).padStart(2, "0");
+        const year = today.getFullYear();
         return `${day}${month}${year}M`;
       }
 
       // UI elements
-      const todayShiftId = getShiftId();
-      const docIdDisplay = document.getElementById("docIdDisplay");
+      const shiftId = getTodayShiftId();
+      document.getElementById("docIdDisplay").textContent = shiftId;
+
       const sendBtn = document.getElementById("sendBtn");
-      const progressBar = document.getElementById("progressBar");
-      const statusText = document.getElementById("statusText");
+      const loadingArea = document.getElementById("loadingArea");
+      const statusMessage = document.getElementById("statusMessage");
 
-      docIdDisplay.textContent = todayShiftId;
+      // 3. Send data on button click
+      sendBtn.onclick = async function () {
+        sendBtn.disabled = true;
+        loadingArea.style.display = "inline";
+        statusMessage.textContent = "";
 
-      // 3. Send shift data to Firestore
-      sendBtn.addEventListener("click", async () => {
         try {
-          sendBtn.disabled = true;
-          statusText.className = "status-text";
-          statusText.textContent = `Connecting to Firestore and saving shift ${todayShiftId}...`;
-          progressBar.style.width = "40%";
-
-          // Write today's document
-          await setDoc(doc(db, "ShiftLog", todayShiftId), sampleShiftData);
-
-          progressBar.style.width = "100%";
-          statusText.className = "status-text success";
-          statusText.textContent = `Shift document "${todayShiftId}" successfully written to ShiftLog!`;
-        } catch (error) {
-          progressBar.style.width = "100%";
-          progressBar.style.backgroundColor = "#ff4757";
-          statusText.className = "status-text error";
-          statusText.textContent = `Error sending data: ${error.message}`;
-          console.error("Firestore write error:", error);
+          await setDoc(doc(db, "ShiftLog", shiftId), sampleShiftData);
+          statusMessage.style.color = "green";
+          statusMessage.textContent = "Data sent successfully for " + shiftId;
+        } catch (err) {
+          statusMessage.style.color = "red";
+          statusMessage.textContent = "Error: " + err.message;
+          console.error("Firestore error:", err);
         } finally {
+          loadingArea.style.display = "none";
           sendBtn.disabled = false;
         }
-      });
+      };
     </script>
   </body>
 </html>
