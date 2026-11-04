@@ -153,7 +153,9 @@
     </style>
   </head>
   <body>
-    <a href="./Dashboard_page1.html" style="color: #666; text-decoration: none; font-size: 13px; display: inline-block; margin-bottom: 12px; font-weight: bold;">&larr; Back to Dashboard</a>
+    <div style="margin-bottom: 14px;">
+      <button type="button" class="btn-secondary" onclick="window.location.href='./Dashboard_page1.html'">&larr; Back to Dashboard</button>
+    </div>
     <h2>Shift Data Test Seeder</h2>
     <p class="subtitle">
       Proxy for Android App: sends shift data for today into Firestore
@@ -192,6 +194,7 @@
 
       <div style="margin-top: 14px">
         <button id="sendBtn">Send Shift Data to Firestore</button>
+        <button type="button" class="btn-secondary" onclick="window.location.href='./Dashboard_page1.html'">Go to Dashboard</button>
         <span
           id="loadingArea"
           style="display: none; margin-left: 10px; font-size: 13px; color: #555"
