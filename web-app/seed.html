@@ -2,80 +2,329 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <title>Black Gold Shift – FULL Seeder (mapped keys)</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Black Gold Shift – Android Proxy Seeder</title>
     <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
       body {
-        background: #0b0b0b;
-        color: #f5c400;
-        font-family: "Segoe UI", Tahoma, sans-serif;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        height: 100vh;
+        background-color: #121212;
+        color: #f0f0f0;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        padding: 24px 16px;
       }
       .container {
-        background: #111;
-        border: 2px solid #f5c400;
-        padding: 24px 28px;
-        width: 700px;
-        box-shadow: 0 0 24px rgba(245, 196, 0, 0.18);
+        max-width: 900px;
+        margin: 0 auto;
+      }
+      header {
+        text-align: center;
+        margin-bottom: 24px;
       }
       h1 {
-        margin-top: 0;
-        text-align: center;
-        font-size: 22px;
+        color: #f5c400;
+        font-size: 24px;
+        margin-bottom: 6px;
       }
-      p {
+      p.subtitle {
+        color: #aaa;
+        font-size: 14px;
+      }
+      /* Top Action Box */
+      .action-card {
+        background: #1e1e1e;
+        border: 1px solid #333;
+        border-radius: 8px;
+        padding: 20px;
+        margin-bottom: 24px;
+      }
+      .action-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-bottom: 16px;
+      }
+      .doc-badge {
         font-size: 13px;
         color: #ccc;
-        text-align: center;
-        margin-bottom: 12px;
       }
-      button {
-        width: 100%;
-        padding: 14px;
+      .doc-id {
+        color: #f5c400;
+        font-family: monospace;
+        font-weight: bold;
+        font-size: 15px;
+      }
+      button.btn-send {
         background: #f5c400;
         color: #000;
         font-size: 15px;
         font-weight: 700;
         border: none;
+        border-radius: 6px;
+        padding: 12px 24px;
         cursor: pointer;
+        transition: background 0.2s, opacity 0.2s;
       }
-      button:hover {
+      button.btn-send:hover {
         background: #ffd84d;
       }
-      pre {
-        background: #000;
-        color: #00ff9c;
-        padding: 12px;
-        margin-top: 16px;
-        height: 240px;
-        overflow-y: auto;
-        font-size: 12px;
-        border: 1px solid #333;
+      button.btn-send:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+      /* Progress bar */
+      .progress-container {
+        width: 100%;
+        background: #2a2a2a;
+        border-radius: 4px;
+        height: 10px;
+        overflow: hidden;
+        margin-bottom: 10px;
+      }
+      .progress-bar {
+        width: 0%;
+        height: 100%;
+        background: #f5c400;
+        transition: width 0.3s ease;
+      }
+      .status-text {
+        font-size: 13px;
+        color: #aaa;
+      }
+      .status-text.success {
+        color: #2ed573;
+        font-weight: 600;
+      }
+      .status-text.error {
+        color: #ff4757;
+        font-weight: 600;
+      }
+      /* Data Grid */
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+        gap: 16px;
+      }
+      .section-card {
+        background: #1a1a1a;
+        border: 1px solid #2d2d2d;
+        border-radius: 8px;
+        padding: 16px;
+      }
+      .section-card h2 {
+        font-size: 15px;
+        color: #f5c400;
+        margin-bottom: 12px;
+        border-bottom: 1px solid #2d2d2d;
+        padding-bottom: 6px;
+      }
+      .field-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 6px 0;
+        font-size: 13px;
+        border-bottom: 1px dotted #262626;
+      }
+      .field-row:last-child {
+        border-bottom: none;
+      }
+      .field-label {
+        color: #bbb;
+      }
+      .field-value {
+        color: #fff;
+        font-weight: 600;
+        font-family: monospace;
       }
       .footer {
-        margin-top: 12px;
-        font-size: 11px;
         text-align: center;
-        color: #777;
+        color: #666;
+        font-size: 12px;
+        margin-top: 32px;
       }
     </style>
   </head>
   <body>
     <div class="container">
-      <h1>⚒️ BLACK GOLD SHIFT — FULL SEEDER (Mapped Keys)</h1>
-      <p>
-        Seeds Firestore with full shift document including table rows + flat
-        keys expected by PDF template.
-      </p>
+      <header>
+        <h1>Black Gold Shift – Android Proxy Seeder</h1>
+        <p class="subtitle">
+          Simulates Android app data submission by sending shift data into Cloud Firestore
+        </p>
+      </header>
 
-      <button id="seedBtn">SEED FULL SHIFT DOCUMENT</button>
+      <!-- Action Box -->
+      <div class="action-card">
+        <div class="action-header">
+          <div class="doc-badge">
+            Target Document ID: <span class="doc-id" id="docIdDisplay">Loading...</span>
+          </div>
+          <button id="sendBtn" class="btn-send">Send Shift Data to Firestore</button>
+        </div>
 
-      <pre id="log">Waiting for action...</pre>
+        <div class="progress-container">
+          <div class="progress-bar" id="progressBar"></div>
+        </div>
+        <div class="status-text" id="statusText">Ready to send. Click the button to upload shift data.</div>
+      </div>
+
+      <!-- Read-Only Data Preview -->
+      <div class="grid">
+        <!-- Washery Section -->
+        <div class="section-card">
+          <h2>Washery Section</h2>
+          <div class="field-row">
+            <span class="field-label">Raw Coal Fed</span>
+            <span class="field-value">1,500 T</span>
+          </div>
+          <div class="field-row">
+            <span class="field-label">Clean Coal</span>
+            <span class="field-value">1,200 T</span>
+          </div>
+          <div class="field-row">
+            <span class="field-label">Middling</span>
+            <span class="field-value">180 T</span>
+          </div>
+          <div class="field-row">
+            <span class="field-label">Rejects</span>
+            <span class="field-value">70 T</span>
+          </div>
+          <div class="field-row">
+            <span class="field-label">Slurry</span>
+            <span class="field-value">50 T</span>
+          </div>
+        </div>
+
+        <!-- Dispatch Section -->
+        <div class="section-card">
+          <h2>Coal Dispatch</h2>
+          <div class="field-row">
+            <span class="field-label">Rail Grade</span>
+            <span class="field-value">Grade A</span>
+          </div>
+          <div class="field-row">
+            <span class="field-label">Rail Target</span>
+            <span class="field-value">500 T</span>
+          </div>
+          <div class="field-row">
+            <span class="field-label">Rail Actual</span>
+            <span class="field-value">420 T</span>
+          </div>
+          <div class="field-row">
+            <span class="field-label">Road Grade</span>
+            <span class="field-value">Grade B</span>
+          </div>
+          <div class="field-row">
+            <span class="field-label">Road Target</span>
+            <span class="field-value">350 T</span>
+          </div>
+          <div class="field-row">
+            <span class="field-label">Road Actual</span>
+            <span class="field-value">310 T</span>
+          </div>
+        </div>
+
+        <!-- Surface Miner -->
+        <div class="section-card">
+          <h2>Surface Miner</h2>
+          <div class="field-row">
+            <span class="field-label">Serial No</span>
+            <span class="field-value">1</span>
+          </div>
+          <div class="field-row">
+            <span class="field-label">Miner No</span>
+            <span class="field-value">03</span>
+          </div>
+          <div class="field-row">
+            <span class="field-label">Bench No</span>
+            <span class="field-value">SMB1</span>
+          </div>
+          <div class="field-row">
+            <span class="field-label">Coal Cut Qty</span>
+            <span class="field-value">150 ('000 Te)</span>
+          </div>
+        </div>
+
+        <!-- Overburden Excavator & Tipper -->
+        <div class="section-card">
+          <h2>Overburden Movement</h2>
+          <div class="field-row">
+            <span class="field-label">Excavator No</span>
+            <span class="field-value">EX-01</span>
+          </div>
+          <div class="field-row">
+            <span class="field-label">Excavator Solid Qty</span>
+            <span class="field-value">1,100</span>
+          </div>
+          <div class="field-row">
+            <span class="field-label">Excavator Rehandling</span>
+            <span class="field-value">160</span>
+          </div>
+          <div class="field-row">
+            <span class="field-label">Tipper No</span>
+            <span class="field-value">TP-01</span>
+          </div>
+          <div class="field-row">
+            <span class="field-label">Tipper Trips</span>
+            <span class="field-value">120</span>
+          </div>
+          <div class="field-row">
+            <span class="field-label">Tipper Soil Qty</span>
+            <span class="field-value">900</span>
+          </div>
+        </div>
+
+        <!-- Drilling Metrics -->
+        <div class="section-card">
+          <h2>Drilling Section</h2>
+          <div class="field-row">
+            <span class="field-label">OB Shot Holes</span>
+            <span class="field-value">42</span>
+          </div>
+          <div class="field-row">
+            <span class="field-label">OB Drill Meters</span>
+            <span class="field-value">128 m</span>
+          </div>
+          <div class="field-row">
+            <span class="field-label">Coal Shot Holes</span>
+            <span class="field-value">34</span>
+          </div>
+          <div class="field-row">
+            <span class="field-label">Coal Drill Meters</span>
+            <span class="field-value">96 m</span>
+          </div>
+        </div>
+
+        <!-- Explosives Metrics -->
+        <div class="section-card">
+          <h2>Blasting & Explosives</h2>
+          <div class="field-row">
+            <span class="field-label">OB Holes Charged</span>
+            <span class="field-value">52</span>
+          </div>
+          <div class="field-row">
+            <span class="field-label">OB Explosives Charged</span>
+            <span class="field-value">520 T</span>
+          </div>
+          <div class="field-row">
+            <span class="field-label">Coal Holes Charged</span>
+            <span class="field-value">44</span>
+          </div>
+          <div class="field-row">
+            <span class="field-label">Coal Explosives Charged</span>
+            <span class="field-value">410 T</span>
+          </div>
+        </div>
+      </div>
 
       <div class="footer">
-        Heavy-duty data • Demo ready • Template-compatible
+        Black Gold Shift • Clean Test Data Seeder
       </div>
     </div>
 
@@ -86,369 +335,137 @@
         setDoc,
       } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-firestore.js";
 
-      const logEl = document.getElementById("log");
-      function logMsg(s) {
-        logEl.textContent += "\n" + s;
-        logEl.scrollTop = logEl.scrollHeight;
-      }
+      // 1. Clean flat shift data matching Firestore schema
+      const sampleShiftData = {
+        // Surface Miner
+        coal_Surfaceminer_Serialno: 1,
+        coal_Surfaceminer_Minerno: 3,
+        coal_Surfaceminer_Benchno: "SMB1",
+        coal_Surfaceminer_Coalquantity: 150,
 
-      function makeId(d = new Date()) {
-        const day = String(d.getDate()).padStart(2, "0");
-        const mon = String(d.getMonth() + 1).padStart(2, "0");
-        const yr = d.getFullYear();
-        return `${day}${mon}${yr}M`;
-      }
-
-      // The structured arrays + flat totals for charts
-      const fullShiftData = {
-        // ---- flat numeric fields for charts (unchanged)
+        // Washery Section
+        washery_Rawcoal: 1500,
         washery_Cleancoal: 1200,
         washery_Midding: 180,
         washery_Rejected: 70,
         washery_Slurry: 50,
-        washery_Rawcoal: 1500,
 
+        // Coal Dispatch
+        dispatch_Rail_Grade: "A",
         dispatch_Rail_Target: 500,
         dispatch_Rail_Actual: 420,
+        dispatch_Road_Grade: "B",
         dispatch_Road_Target: 350,
         dispatch_Road_Actual: 310,
 
+        // Overburden Excavator (Shovel)
+        overburden_Shovel_SIno: 1,
+        overburden_Shovel_Shovelno: "EX-01",
+        overburden_Shovel_Benchno: "B1",
         overburden_Shovel_Solidquantity: 1100,
         overburden_Shovel_Rehandalingquantity: 160,
+        overburden_Shovel_Totalquantity: 1260,
 
-        overburden_Drill_Noofshotholesdrilled: 42,
-        coal_Drill_Noofshotholesdrilled: 34,
-        overburden_Drill_Drillingmeter: 128,
-        coal_Drill_Drillingmeter: 96,
-        overburden_Drill_Total: 220,
-        coal_Drill_Total: 165,
-
-        overburden_Explosives_Noholescharged: 52,
-        coal_Explosives_Noholescharged: 44,
-        overburden_Explosives_Explosivescharged: 520,
-        coal_Explosives_Explosivescharged: 410,
-        overburden_Explosives_NoholesBlasetedd: 48,
-        coal_Explosives_NoholesBlasetedd: 39,
-        overburden_Explosives_Explosiveblasted: 495,
-        coal_Explosives_Explosiveblasted: 380,
-
+        // Overburden Tipper
+        overburden_Tripper_SIno: 1,
+        overburden_Tripper_Tripperno: "TP-01",
+        overburden_Tripper_Benchno: "B1",
+        overburden_Tripper_Dumperfac: 1.1,
+        overburden_Tripper_Tripsno: 120,
         overburden_Tripper_Soilquantity: 900,
         overburden_Tripper_Rehanquantity: 130,
+        overburden_Tripper_Totalquantity: 1030,
 
-        coal_Surfaceminer_Minerno: 3,
+        // Overburden Drilling
+        overburden_Drill_Serialno: 1,
+        overburden_Drill_Drillno: "OD-01",
+        overburden_Drill_Benchno: "B1",
+        overburden_Drill_Noofshotholesdrilled: 42,
+        overburden_Drill_Drillingmeter: 128,
+        overburden_Drill_Total: 220,
+
+        // Overburden Explosives
+        overburden_Explosives_SIno: 1,
+        overburden_Explosives_Benchno: "B1",
+        overburden_Explosives_Noholescharged: 52,
+        overburden_Explosives_NoholesBlasetedd: 48,
+        overburden_Explosives_Explosivescharged: 520,
+        overburden_Explosives_Explosiveblasted: 495,
+
+        // Coal Excavator
+        coal_Shovel_Serialno: 1,
+        coal_Shovel_Shovelno: "CE-01",
+        coal_Shovel_Benchno: "CB1",
+        coal_Shovel_Coalquantity: 1200,
+
+        // Coal Tipper
+        coal_Tripper_Serialno: 1,
+        coal_Tripper_Tripperno: "TP-C1",
+        coal_Tripper_Benchno: "CB1",
+        coal_Tripper_Dumperfactor: 1.2,
+        coal_Tripper_Tripsnowithoutwieghts: 60,
+        coal_Tripper_CoalQuantitywithoutweights: 900,
+        coal_Tripper_Tripsnowithweights: 58,
+        coal_Tripper_CoalQuantitywithweights: 880,
+
+        // Coal Drilling
+        coal_Drill_Serialno: 1,
+        coal_Drill_Drillno: "CD-01",
+        coal_Drill_Benchno: "CB1",
+        coal_Drill_Noofshotholesdrilled: 34,
+        coal_Drill_Drillingmeter: 96,
+        coal_Drill_Total: 165,
+
+        // Coal Explosives
+        coal_Explosives_SIno: 1,
+        coal_Explosives_Benchno: "CB1",
+        coal_Explosives_Noholescharged: 44,
+        coal_Explosives_NoholesBlasetedd: 39,
+        coal_Explosives_Explosivescharged: 410,
+        coal_Explosives_Explosiveblasted: 380,
       };
 
-      // Structured arrays for PDF rows (first element will be mapped to flat keys)
-      const arrays = {
-        overburden_excavator: [
-          {
-            si: 1,
-            no: "EX-01",
-            benchNo: "B1",
-            qbSolid: 1100,
-            rehandling: 160,
-            total: 1260,
-          },
-        ],
-        overburden_tipper: [
-          {
-            si: 1,
-            no: "TP-01",
-            benchNo: "B1",
-            dumperFactor: 1.1,
-            trips: 120,
-            qbSolid: 900,
-            rehandling: 130,
-            total: 1030,
-          },
-        ],
-        overburden_drilling: [
-          {
-            si: 1,
-            no: "OD-01",
-            benchNo: "B1",
-            nShotHoles: 42,
-            drillMeters: 128,
-            total: 220,
-          },
-        ],
-        overburden_explosives: [
-          {
-            si: 1,
-            bench: "B1",
-            nHolesCharged: 52,
-            nHolesBlasted: 48,
-            explosCharged_t: 520,
-            explosBlasted_t: 495,
-          },
-        ],
-        coal_excavator: [
-          {
-            si: 1,
-            no: "CE-01",
-            nameNo: "EXC-A",
-            benchNo: "CB1",
-            coalQty_excavated_te: 0,
-          },
-        ],
-        coal_tipper: [
-          {
-            si: 1,
-            nameNo: "TP-C1",
-            benchNo: "CB1",
-            dumperFactor: 1.2,
-            without: { trips: 60, coalQty_T: 900 },
-            with: { trips: 58, coalQty_T: 880 },
-          },
-        ],
-        coal_drilling: [
-          {
-            si: 1,
-            no: "CD-01",
-            benchNo: "CB1",
-            nShotHoles: 34,
-            drillMeters: 96,
-            total: 165,
-          },
-        ],
-        coal_explosives: [
-          {
-            si: 1,
-            bench: "CB1",
-            nHolesCharged: 44,
-            nHolesBlasted: 39,
-            explosCharged_t: 410,
-            explosBlasted_t: 380,
-          },
-        ],
-        surface_miners: [
-          { si: 1, no: "01", benchNo: "SMB1", coalQty_cut_000te: 150 },
-        ],
-        washery_rows: [
-          {
-            raw_coal_feed_tonnes: 1500,
-            clean_coal_000te: 1200,
-            middling_000te: 180,
-            rejects_000te: 70,
-            slurry_000te: 50,
-            cleanCoalPercent: 80,
-            middlingPercent: 12,
-            slurryPercent: (50 / 1500) * 100,
-            rejectedPercent: (70 / 1500) * 100,
-          },
-        ],
-        dispatch_rows: [
-          { mode: "Rail", grade: "A", target: 500, actual: 420 },
-          { mode: "Road", grade: "B", target: 350, actual: 310 },
-        ],
-      };
-
-      // Function: map first row fields into the exact flat keys the Handlebars template expects
-      function mapArraysToFlat(obj, arrs) {
-        // Overburden Excavator -> template expects: overburden_Shovel_SIno, overburden_Shovel_Shovelno, overburden_Shovel_Benchno, overburden_Shovel_Solidquantity, overburden_Shovel_Rehandalingquantity, overburden_Shovel_Totalquantity
-        const oe = arrs.overburden_excavator && arrs.overburden_excavator[0];
-        if (oe) {
-          obj.overburden_Shovel_SIno = oe.si ?? "";
-          obj.overburden_Shovel_Shovelno = oe.no ?? "";
-          obj.overburden_Shovel_Benchno = oe.benchNo ?? "";
-          obj.overburden_Shovel_Solidquantity =
-            oe.qbSolid ?? obj.overburden_Shovel_Solidquantity ?? 0;
-          obj.overburden_Shovel_Rehandalingquantity =
-            oe.rehandling ?? obj.overburden_Shovel_Rehandalingquantity ?? 0;
-          obj.overburden_Shovel_Totalquantity =
-            oe.total ?? (oe.qbSolid || 0) + (oe.rehandling || 0);
-        }
-
-        // Overburden tipper -> template expects: overburden_Tripper_SIno, overburden_Tripper_Tripperno, overburden_Tripper_Benchno, overburden_Tripper_Dumperfac, overburden_Tripper_Tripsno, overburden_Tripper_Soilquantity, overburden_Tripper_Rehanquantity, overburden_Tripper_Totalquantity
-        const ot = arrs.overburden_tipper && arrs.overburden_tipper[0];
-        if (ot) {
-          obj.overburden_Tripper_SIno = ot.si ?? "";
-          obj.overburden_Tripper_Tripperno = ot.no ?? "";
-          obj.overburden_Tripper_Benchno = ot.benchNo ?? "";
-          obj.overburden_Tripper_Dumperfac =
-            ot.dumperFactor ?? ot.dumperFactor ?? "";
-          obj.overburden_Tripper_Tripsno = ot.trips ?? "";
-          obj.overburden_Tripper_Soilquantity =
-            ot.qbSolid ?? obj.overburden_Tripper_Soilquantity ?? 0;
-          obj.overburden_Tripper_Rehanquantity =
-            ot.rehandling ?? obj.overburden_Tripper_Rehanquantity ?? 0;
-          obj.overburden_Tripper_Totalquantity =
-            ot.total ?? (ot.qbSolid || 0) + (ot.rehandling || 0);
-        }
-
-        // Overburden drilling -> template uses overburden_Drill_Serialno, overburden_Drill_Drillno, overburden_Drill_Benchno, overburden_Drill_Noofshotholesdrilled, overburden_Drill_Drillingmeter, overburden_Drill_Total
-        const od = arrs.overburden_drilling && arrs.overburden_drilling[0];
-        if (od) {
-          obj.overburden_Drill_Serialno = od.si ?? "";
-          obj.overburden_Drill_Drillno = od.no ?? "";
-          obj.overburden_Drill_Benchno = od.benchNo ?? "";
-          obj.overburden_Drill_Noofshotholesdrilled =
-            od.nShotHoles ?? obj.overburden_Drill_Noofshotholesdrilled ?? 0;
-          obj.overburden_Drill_Drillingmeter =
-            od.drillMeters ?? obj.overburden_Drill_Drillingmeter ?? 0;
-          obj.overburden_Drill_Total =
-            od.total ?? obj.overburden_Drill_Total ?? 0;
-        }
-
-        // Overburden explosives -> template keys: overburden_Explosives_SIno, overburden_Explosives_Benchno, overburden_Explosives_Noholescharged, overburden_Explosives_NoholesBlasetedd, overburden_Explosives_Explosivescharged, overburden_Explosives_Explosiveblasted
-        const oepl =
-          arrs.overburden_explosives && arrs.overburden_explosives[0];
-        if (oepl) {
-          obj.overburden_Explosives_SIno = oepl.si ?? "";
-          obj.overburden_Explosives_Benchno = oepl.bench ?? "";
-          obj.overburden_Explosives_Noholescharged =
-            oepl.nHolesCharged ?? obj.overburden_Explosives_Noholescharged ?? 0;
-          obj.overburden_Explosives_NoholesBlasetedd =
-            oepl.nHolesBlasted ??
-            obj.overburden_Explosives_NoholesBlasetedd ??
-            0;
-          obj.overburden_Explosives_Explosivescharged =
-            oepl.explosCharged_t ??
-            obj.overburden_Explosives_Explosivescharged ??
-            0;
-          obj.overburden_Explosives_Explosiveblasted =
-            oepl.explosBlasted_t ??
-            obj.overburden_Explosives_Explosiveblasted ??
-            0;
-        }
-
-        // Coal Excavator -> template: coal_Shovel_Serialno, coal_Shovel_Shovelno, coal_Shovel_Benchno, coal_Shovel_Coalquantity
-        const ce = arrs.coal_excavator && arrs.coal_excavator[0];
-        if (ce) {
-          obj.coal_Shovel_Serialno = ce.si ?? "";
-          obj.coal_Shovel_Shovelno = ce.no ?? ce.nameNo ?? "";
-          obj.coal_Shovel_Benchno = ce.benchNo ?? "";
-          obj.coal_Shovel_Coalquantity = ce.coalQty_excavated_te ?? 0;
-        }
-
-        // Coal Tipper -> many template keys (notice template typos; we match them exactly)
-        const ct = arrs.coal_tipper && arrs.coal_tipper[0];
-        if (ct) {
-          obj.coal_Tripper_Serialno = ct.si ?? "";
-          obj.coal_Tripper_Tripperno = ct.nameNo ?? "";
-          obj.coal_Tripper_Benchno = ct.benchNo ?? "";
-          obj.coal_Tripper_Dumperfactor = ct.dumperFactor ?? "";
-          // template expects:
-          // coal_Tripper_Tripsnowithoutwieghts
-          // coal_Tripper_CoalQuantitywithoutweights
-          // coal_Tripper_Tripsnowithweights
-          // coal_Tripper_CoalQuantitywithweights
-          obj.coal_Tripper_Tripsnowithoutwieghts =
-            ct.without?.trips ?? ct.without?.Trips ?? "";
-          obj.coal_Tripper_CoalQuantitywithoutweights =
-            ct.without?.coalQty_T ?? "";
-          obj.coal_Tripper_Tripsnowithweights =
-            ct.with?.trips ?? ct.with?.Trips ?? "";
-          obj.coal_Tripper_CoalQuantitywithweights = ct.with?.coalQty_T ?? "";
-        }
-
-        // Coal drilling keys
-        const cd = arrs.coal_drilling && arrs.coal_drilling[0];
-        if (cd) {
-          obj.coal_Drill_Serialno = cd.si ?? "";
-          obj.coal_Drill_Drillno = cd.no ?? "";
-          obj.coal_Drill_Benchno = cd.benchNo ?? "";
-          obj.coal_Drill_Noofshotholesdrilled =
-            cd.nShotHoles ?? obj.coal_Drill_Noofshotholesdrilled ?? 0;
-          obj.coal_Drill_Drillingmeter =
-            cd.drillMeters ?? obj.coal_Drill_Drillingmeter ?? 0;
-          obj.coal_Drill_Total = cd.total ?? obj.coal_Drill_Total ?? 0;
-        }
-
-        // Coal explosives keys
-        const cepl = arrs.coal_explosives && arrs.coal_explosives[0];
-        if (cepl) {
-          obj.coal_Explosives_SIno = cepl.si ?? "";
-          obj.coal_Explosives_Benchno = cepl.bench ?? "";
-          obj.coal_Explosives_Noholescharged =
-            cepl.nHolesCharged ?? obj.coal_Explosives_Noholescharged ?? 0;
-          obj.coal_Explosives_NoholesBlasetedd =
-            cepl.nHolesBlasted ?? obj.coal_Explosives_NoholesBlasetedd ?? 0;
-          obj.coal_Explosives_Explosivescharged =
-            cepl.explosCharged_t ?? obj.coal_Explosives_Explosivescharged ?? 0;
-          obj.coal_Explosives_Explosiveblasted =
-            cepl.explosBlasted_t ?? obj.coal_Explosives_Explosiveblasted ?? 0;
-        }
-
-        // Surface miners flat keys
-        const sm = arrs.surface_miners && arrs.surface_miners[0];
-        if (sm) {
-          obj.coal_Surfaceminer_Serialno = sm.si ?? "";
-          obj.coal_Surfaceminer_Minerno = sm.no ?? sm.nameNo ?? "";
-          obj.coal_Surfaceminer_Benchno = sm.benchNo ?? "";
-          obj.coal_Surfaceminer_Coalquantity = sm.coalQty_cut_000te ?? 0;
-        }
-
-        // Washery and dispatch: map first washery row and dispatch_rows first elements
-        const wr = arrs.washery_rows && arrs.washery_rows[0];
-        if (wr) {
-          obj.washery_Rawcoal =
-            wr.raw_coal_feed_tonnes ?? obj.washery_Rawcoal ?? 0;
-          obj.washery_Cleancoal =
-            wr.clean_coal_000te ?? obj.washery_Cleancoal ?? 0;
-          obj.washery_Midding = wr.middling_000te ?? obj.washery_Midding ?? 0;
-          obj.washery_Rejected = wr.rejects_000te ?? obj.washery_Rejected ?? 0;
-          obj.washery_Slurry = wr.slurry_000te ?? obj.washery_Slurry ?? 0;
-          obj.cleanCoalPercent =
-            wr.cleanCoalPercent ?? obj.cleanCoalPercent ?? 0;
-          obj.middlingPercent = wr.middlingPercent ?? obj.middlingPercent ?? 0;
-          obj.slurryPercent = wr.slurryPercent ?? obj.slurryPercent ?? 0;
-          obj.rejectedPercent = wr.rejectedPercent ?? obj.rejectedPercent ?? 0;
-        }
-
-        // Dispatch rows: map first two as Rail and Road if available
-        if (Array.isArray(arrs.dispatch_rows)) {
-          const rail = arrs.dispatch_rows[0];
-          const road = arrs.dispatch_rows[1];
-          if (rail) {
-            obj.dispatch_Rail_Grade = rail.grade ?? "";
-            obj.dispatch_Rail_Target =
-              rail.target ?? obj.dispatch_Rail_Target ?? 0;
-            obj.dispatch_Rail_Actual =
-              rail.actual ?? obj.dispatch_Rail_Actual ?? 0;
-          }
-          if (road) {
-            obj.dispatch_Road_Grade = road.grade ?? "";
-            obj.dispatch_Road_Target =
-              road.target ?? obj.dispatch_Road_Target ?? 0;
-            obj.dispatch_Road_Actual =
-              road.actual ?? obj.dispatch_Road_Actual ?? 0;
-          }
-        }
-
-        return obj;
+      // 2. Helper to get document ID format: DDMMYYYY + "M"
+      function getShiftId(date = new Date()) {
+        const day = String(date.getDate()).padStart(2, "0");
+        const month = String(date.getMonth() + 1).padStart(2, "0");
+        const year = date.getFullYear();
+        return `${day}${month}${year}M`;
       }
 
-      document.getElementById("seedBtn").onclick = async () => {
-        logEl.textContent =
-          "Starting full seeding process (mapping to template keys)...";
+      // UI elements
+      const todayShiftId = getShiftId();
+      const docIdDisplay = document.getElementById("docIdDisplay");
+      const sendBtn = document.getElementById("sendBtn");
+      const progressBar = document.getElementById("progressBar");
+      const statusText = document.getElementById("statusText");
 
-        // Build the doc object by merging flat fields and arrays
-        const docObj = { ...fullShiftData, ...arrays };
+      docIdDisplay.textContent = todayShiftId;
 
-        // Map arrays' first elements into flat keys the template expects
-        mapArraysToFlat(docObj, arrays);
+      // 3. Send shift data to Firestore
+      sendBtn.addEventListener("click", async () => {
+        try {
+          sendBtn.disabled = true;
+          statusText.className = "status-text";
+          statusText.textContent = `Connecting to Firestore and saving shift ${todayShiftId}...`;
+          progressBar.style.width = "40%";
 
-        const today = new Date();
-        const yesterday = new Date();
-        yesterday.setDate(today.getDate() - 1);
-        const ids = [makeId(today), makeId(yesterday), "15062025M"];
+          // Write today's document
+          await setDoc(doc(db, "ShiftLog", todayShiftId), sampleShiftData);
 
-        for (const id of ids) {
-          try {
-            await setDoc(doc(db, "ShiftLog", id), docObj);
-            logMsg(`Seeded document: ${id}`);
-          } catch (err) {
-            logMsg(`Failed ${id}: ${err.message}`);
-            console.error(err);
-          }
+          progressBar.style.width = "100%";
+          statusText.className = "status-text success";
+          statusText.textContent = `Shift document "${todayShiftId}" successfully written to ShiftLog!`;
+        } catch (error) {
+          progressBar.style.width = "100%";
+          progressBar.style.backgroundColor = "#ff4757";
+          statusText.className = "status-text error";
+          statusText.textContent = `Error sending data: ${error.message}`;
+          console.error("Firestore write error:", error);
+        } finally {
+          sendBtn.disabled = false;
         }
-
-        logMsg(
-          "Full seeding complete. Now go to the app, click 'Generate Log' and then 'Generate PDF'."
-        );
-        alert("Seeding complete — documents added to ShiftLog.");
-      };
+      });
     </script>
   </body>
 </html>
