@@ -2,6 +2,7 @@
 
 import { db } from "./firebase.js";
 import { doc, getDoc } from "firebase/firestore";
+import { getFormattedDate } from "./docId.js";
 
 export async function renderCharts() {
   try {
@@ -182,15 +183,7 @@ export async function renderCharts() {
 
 // ---------------- HELPERS ----------------
 
-function getFormattedDate() {
-  const d = new Date();
-  return (
-    String(d.getDate()).padStart(2, "0") +
-    String(d.getMonth() + 1).padStart(2, "0") +
-    d.getFullYear() +
-    "M"
-  );
-}
+const chartInstances = {};
 
 function setText(id, value) {
   const el = document.getElementById(id);
@@ -201,7 +194,11 @@ function renderPieChart(id, title, labels, data, colors) {
   const canvas = document.getElementById(id);
   if (!canvas) return;
 
-  new Chart(canvas.getContext("2d"), {
+  if (chartInstances[id]) {
+    chartInstances[id].destroy();
+  }
+
+  chartInstances[id] = new Chart(canvas.getContext("2d"), {
     type: "pie",
     data: {
       labels,
@@ -220,7 +217,11 @@ function renderBarChart(id, title, labels, datasets) {
   const canvas = document.getElementById(id);
   if (!canvas) return;
 
-  new Chart(canvas.getContext("2d"), {
+  if (chartInstances[id]) {
+    chartInstances[id].destroy();
+  }
+
+  chartInstances[id] = new Chart(canvas.getContext("2d"), {
     type: "bar",
     data: { labels, datasets },
     options: {
