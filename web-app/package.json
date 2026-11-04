@@ -1,14 +1,16 @@
 {
   "name": "black-gold-shift-web",
   "version": "1.0.0",
+  "type": "module",
   "description": "Black Gold Shift - Coal Mining Shift Log Web Dashboard",
-  "main": "public/js/firebase.js",
+  "main": "js/firebase.js",
   "scripts": {
-    "start": "firebase serve --only hosting",
-    "serve": "firebase serve --only hosting",
-    "deploy": "firebase deploy --only hosting",
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "deploy": "vite build && firebase deploy --only hosting",
     "deploy:rules": "firebase deploy --only firestore:rules",
-    "deploy:all": "firebase deploy"
+    "deploy:all": "vite build && firebase deploy"
   },
   "keywords": [
     "coal-mining",
@@ -20,5 +22,8 @@
   "license": "ISC",
   "dependencies": {
     "firebase": "^13.2.0"
+  },
+  "devDependencies": {
+    "vite": "^8.3.5"
   }
 }
