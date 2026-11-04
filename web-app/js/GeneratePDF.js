@@ -1,18 +1,11 @@
 // GeneratePDF.js
 
 import "./firebase.js";
+import { getFormattedDate } from "./docId.js";
 
 document
   .getElementById("GeneratePDFButton")
   .addEventListener("click", function () {
-    const getDate = () => {
-      const today = new Date();
-      const day = today.getDate().toString().padStart(2, "0");
-      const month = (today.getMonth() + 1).toString().padStart(2, "0");
-      const year = today.getFullYear();
-      return `${day}${month}${year}M`;
-    };
-
     const getDateForPDF = () => {
       const today = new Date();
       const day = today.getDate().toString().padStart(2, "0");
@@ -22,7 +15,7 @@ document
     };
 
     const todaysDateForPDF = getDateForPDF();
-    const todaysDate = getDate();
+    const todaysDate = getFormattedDate();
 
     const { jsPDF } = window.jspdf;
     const element = document.getElementById("all-table-container");

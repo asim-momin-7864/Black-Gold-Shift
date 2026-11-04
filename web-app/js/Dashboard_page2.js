@@ -2,15 +2,7 @@
 import { auth, db } from "./firebase.js";
 import { onAuthStateChanged } from "firebase/auth";
 import { doc, getDoc } from "firebase/firestore";
-
-// Function to format the current date
-const getFormattedDate = () => {
-  const today = new Date();
-  const day = today.getDate().toString().padStart(2, "0");
-  const month = (today.getMonth() + 1).toString().padStart(2, "0");
-  const year = today.getFullYear();
-  return `${day}${month}${year}M`;
-};
+import { getFormattedDate } from "./docId.js";
 
 // Helper to calculate percentage safely
 const percent = (value, total) => {
