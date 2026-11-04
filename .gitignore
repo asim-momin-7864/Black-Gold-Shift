@@ -2,9 +2,12 @@
 *.keystore
 local.properties
 .env
+.env*.local
+**/env.js
 node_modules/
 .firebase/
 *.log
 .DS_Store
 build/
+dist/
 .gradle/
