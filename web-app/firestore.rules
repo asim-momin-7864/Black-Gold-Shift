@@ -1,0 +1,22 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function allowedUser() {
+      return request.auth != null
+        && request.auth.uid in [
+          'qg5XLg3uD6UhqKvoHl5mWMl49gI3',
+          'ekUb99rCCuhroPXEizuM0swBAv02',
+          'Bi8qZgxo7ufI7fzB0GvrYpxlENC3',
+          'UID_OF_YOU',
+          'UID_OF_SUJAL'
+        ];
+    }
+
+    match /ShiftLog/{shiftId} {
+      allow read: if allowedUser();
+      allow create, update: if allowedUser() && shiftId.matches('^[0-9]{8}[A-Z]$');
+      allow delete: if false;
+    }
+  }
+}
