@@ -1,5 +1,6 @@
 // Dashboard_page2.js
-import { db } from "./firebase.js";
+import { auth, db } from "./firebase.js";
+import { onAuthStateChanged } from "firebase/auth";
 import { doc, getDoc } from "firebase/firestore";
 
 // Function to format the current date
@@ -17,60 +18,68 @@ const percent = (value, total) => {
   return (value / total) * 100;
 };
 
-// Function to fetch and display data from Firestore
-const fetchAndDisplayData = async () => {
-  const formattedDate = getFormattedDate();
-  const docRef = doc(db, "ShiftLog", formattedDate);
-
-  try {
-    const docSnap = await getDoc(docRef);
-    const data = docSnap.exists() ? docSnap.data() : null;
-
-    if (!data) {
-      console.error("Document not found!");
-      return;
-    }
-
-    data["cleanCoalPercent"] = percent(
-      data.washery_Cleancoal,
-      data.washery_Rawcoal
-    );
-    data["middlingPercent"] = percent(
-      data.washery_Midding,
-      data.washery_Rawcoal
-    );
-    data["rejectedPercent"] = percent(
-      data.washery_Rejected,
-      data.washery_Rawcoal
-    );
-    data["slurryPercent"] = percent(data.washery_Slurry, data.washery_Rawcoal);
-
-    // Compile the Handlebars template and render it
-    const source = document.getElementById("table-template").innerHTML;
-    const template = Handlebars.compile(source);
-    const html = template(data);
-    document.querySelector(".table-container").innerHTML = html;
-  } catch (error) {
-    console.error("Error fetching document:", error);
+// Check if user is signed in
+onAuthStateChanged(auth, (user) => {
+  if (!user) {
+    window.location.href = "./login.html";
+    return;
   }
-};
 
-// Event listener for the Generate Log button
-document
-  .getElementById("Generate-Log-Button")
-  .addEventListener("click", fetchAndDisplayData);
+  // Only run page code when user is signed in
+  const fetchAndDisplayData = async () => {
+    const formattedDate = getFormattedDate();
+    const docRef = doc(db, "ShiftLog", formattedDate);
 
-// Function to handle navigation to the monitoring page
-const handleMonitoringButtonClick = () => {
-  window.location.href = "./Dashboard_page1.html";
-};
+    try {
+      const docSnap = await getDoc(docRef);
+      const data = docSnap.exists() ? docSnap.data() : null;
 
-// Event listener for the monitoring button
-document
-  .getElementById("monitoringButton")
-  .addEventListener("click", handleMonitoringButtonClick);
+      if (!data) {
+        console.error("Document not found!");
+        return;
+      }
 
-// Event listener for the test seeder button
-document.getElementById("seedDataButton")?.addEventListener("click", () => {
-  window.location.href = "./seed.html";
+      data["cleanCoalPercent"] = percent(
+        data.washery_Cleancoal,
+        data.washery_Rawcoal
+      );
+      data["middlingPercent"] = percent(
+        data.washery_Midding,
+        data.washery_Rawcoal
+      );
+      data["rejectedPercent"] = percent(
+        data.washery_Rejected,
+        data.washery_Rawcoal
+      );
+      data["slurryPercent"] = percent(data.washery_Slurry, data.washery_Rawcoal);
+
+      // Compile the Handlebars template and render it
+      const source = document.getElementById("table-template").innerHTML;
+      const template = Handlebars.compile(source);
+      const html = template(data);
+      document.querySelector(".table-container").innerHTML = html;
+    } catch (error) {
+      console.error("Error fetching document:", error);
+    }
+  };
+
+  // Event listener for the Generate Log button
+  document
+    .getElementById("Generate-Log-Button")
+    ?.addEventListener("click", fetchAndDisplayData);
+
+  // Function to handle navigation to the monitoring page
+  const handleMonitoringButtonClick = () => {
+    window.location.href = "./Dashboard_page1.html";
+  };
+
+  // Event listener for the monitoring button
+  document
+    .getElementById("monitoringButton")
+    ?.addEventListener("click", handleMonitoringButtonClick);
+
+  // Event listener for the test seeder button
+  document.getElementById("seedDataButton")?.addEventListener("click", () => {
+    window.location.href = "./seed.html";
+  });
 });

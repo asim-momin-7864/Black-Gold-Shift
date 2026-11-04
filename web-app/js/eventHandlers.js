@@ -1,21 +1,34 @@
 // eventHandlers.js
+import { auth } from "./firebase.js";
+import { onAuthStateChanged } from "firebase/auth";
 import { renderCharts } from "./chartConfig.js";
 
-document.getElementById("tableSectionButton").addEventListener("click", () => {
-  const targetUrl = "./Dashboard_page2.html";
-  if (window.location.href !== targetUrl) {
-    window.location.href = targetUrl;
-  } else {
-    alert("You are already on the target page!");
+// Check if user is signed in
+onAuthStateChanged(auth, (user) => {
+  if (!user) {
+    window.location.href = "./login.html";
+    return;
   }
-});
 
-document
-  .getElementById("AnalysisButton")
-  .addEventListener("click", async () => {
-    await renderCharts();
+  // Only run page code when user is signed in
+  document
+    .getElementById("tableSectionButton")
+    ?.addEventListener("click", () => {
+      const targetUrl = "./Dashboard_page2.html";
+      if (window.location.href !== targetUrl) {
+        window.location.href = targetUrl;
+      } else {
+        alert("You are already on the target page!");
+      }
+    });
+
+  document
+    .getElementById("AnalysisButton")
+    ?.addEventListener("click", async () => {
+      await renderCharts();
+    });
+
+  document.getElementById("seedDataButton")?.addEventListener("click", () => {
+    window.location.href = "./seed.html";
   });
-
-document.getElementById("seedDataButton")?.addEventListener("click", () => {
-  window.location.href = "./seed.html";
 });
