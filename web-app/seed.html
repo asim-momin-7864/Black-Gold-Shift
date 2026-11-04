@@ -88,6 +88,15 @@
       <div>
         Target Document ID: <b id="docIdDisplay">...</b>
       </div>
+
+      <!-- Simple Authentication Bar -->
+      <div style="margin-top: 10px; padding: 8px; background: #f9f9f9; border: 1px solid #e0e0e0;">
+        <span id="userStatus" style="font-size: 13px; font-weight: bold; margin-right: 10px;">Checking auth...</span>
+        <input type="email" id="authEmail" placeholder="Email" style="padding: 4px; font-size: 12px;" />
+        <input type="password" id="authPassword" placeholder="Password" style="padding: 4px; font-size: 12px;" />
+        <button type="button" id="loginBtn" style="padding: 4px 10px; font-size: 12px;">Sign In</button>
+      </div>
+
       <div style="margin-top: 12px;">
         <button id="sendBtn">Send Shift Data to Firestore</button>
         <span id="loadingArea" style="display: none; margin-left: 10px;">
@@ -155,7 +164,11 @@
     </div>
 
     <script type="module">
-      import { db } from "./public/js/firebase.js";
+      import { auth, db } from "./public/js/firebase.js";
+      import {
+        signInWithEmailAndPassword,
+        onAuthStateChanged,
+      } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-auth.js";
       import {
         doc,
         setDoc,
@@ -263,6 +276,30 @@
       // UI elements
       const shiftId = getTodayShiftId();
       document.getElementById("docIdDisplay").textContent = shiftId;
+
+      const userStatus = document.getElementById("userStatus");
+      const authEmail = document.getElementById("authEmail");
+      const authPassword = document.getElementById("authPassword");
+      const loginBtn = document.getElementById("loginBtn");
+
+      // Monitor sign-in state
+      onAuthStateChanged(auth, (user) => {
+        if (user) {
+          userStatus.textContent = "Signed in as: " + user.email;
+          userStatus.style.color = "green";
+        } else {
+          userStatus.textContent = "Not signed in (must sign in to write):";
+          userStatus.style.color = "#c0392b";
+        }
+      });
+
+      loginBtn.onclick = async function () {
+        try {
+          await signInWithEmailAndPassword(auth, authEmail.value, authPassword.value);
+        } catch (err) {
+          alert("Sign in failed: " + err.message);
+        }
+      };
 
       const sendBtn = document.getElementById("sendBtn");
       const loadingArea = document.getElementById("loadingArea");
