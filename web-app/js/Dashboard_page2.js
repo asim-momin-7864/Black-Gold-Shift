@@ -4,10 +4,10 @@ import { onAuthStateChanged } from "firebase/auth";
 import { doc, getDoc } from "firebase/firestore";
 import { getFormattedDate } from "./docId.js";
 
-// Helper to calculate percentage safely
+// Helper to calculate percentage safely rounded to 2 decimals
 const percent = (value, total) => {
   if (!total || total === 0) return 0;
-  return (value / total) * 100;
+  return Number(((value / total) * 100).toFixed(2));
 };
 
 // Check if user is signed in
