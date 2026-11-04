@@ -1,6 +1,6 @@
 // sign_up.js (top)
 import { auth } from "./firebase.js";
-import { createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-auth.js";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 
 async function signUpUser(event) {
   event.preventDefault();
