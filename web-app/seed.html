@@ -92,9 +92,12 @@
       <!-- Simple Authentication Bar -->
       <div style="margin-top: 10px; padding: 8px; background: #f9f9f9; border: 1px solid #e0e0e0;">
         <span id="userStatus" style="font-size: 13px; font-weight: bold; margin-right: 10px;">Checking auth...</span>
-        <input type="email" id="authEmail" placeholder="Email" style="padding: 4px; font-size: 12px;" />
-        <input type="password" id="authPassword" placeholder="Password" style="padding: 4px; font-size: 12px;" />
-        <button type="button" id="loginBtn" style="padding: 4px 10px; font-size: 12px;">Sign In</button>
+        <span id="authInputs">
+          <input type="email" id="authEmail" placeholder="Email" style="padding: 4px; font-size: 12px;" />
+          <input type="password" id="authPassword" placeholder="Password" style="padding: 4px; font-size: 12px;" />
+          <button type="button" id="loginBtn" style="padding: 4px 10px; font-size: 12px;">Sign In</button>
+        </span>
+        <button type="button" id="logoutBtn" style="display: none; padding: 4px 10px; font-size: 12px;">Sign Out</button>
       </div>
 
       <div style="margin-top: 12px;">
@@ -167,6 +170,7 @@
       import { auth, db } from "./public/js/firebase.js";
       import {
         signInWithEmailAndPassword,
+        signOut,
         onAuthStateChanged,
       } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-auth.js";
       import {
@@ -278,18 +282,24 @@
       document.getElementById("docIdDisplay").textContent = shiftId;
 
       const userStatus = document.getElementById("userStatus");
+      const authInputs = document.getElementById("authInputs");
       const authEmail = document.getElementById("authEmail");
       const authPassword = document.getElementById("authPassword");
       const loginBtn = document.getElementById("loginBtn");
+      const logoutBtn = document.getElementById("logoutBtn");
 
       // Monitor sign-in state
       onAuthStateChanged(auth, (user) => {
         if (user) {
-          userStatus.textContent = "Signed in as: " + user.email;
+          userStatus.textContent = "Signed in as: " + user.email + " (UID: " + user.uid + ")";
           userStatus.style.color = "green";
+          authInputs.style.display = "none";
+          logoutBtn.style.display = "inline";
         } else {
-          userStatus.textContent = "Not signed in (must sign in to write):";
+          userStatus.textContent = "Not signed in (sign in below):";
           userStatus.style.color = "#c0392b";
+          authInputs.style.display = "inline";
+          logoutBtn.style.display = "none";
         }
       });
 
@@ -299,6 +309,10 @@
         } catch (err) {
           alert("Sign in failed: " + err.message);
         }
+      };
+
+      logoutBtn.onclick = async function () {
+        await signOut(auth);
       };
 
       const sendBtn = document.getElementById("sendBtn");
