@@ -13,10 +13,10 @@ This project was originally built during a college hackathon and was recently re
 In many mining operations, shift data is still recorded manually on paper.
 This project was an attempt to:
 
-* Reduce manual paperwork
-* Digitize shift handover logs
-* Make reports easier to view, analyze, and export
-* Experiment with a simple App + Web + Firebase system
+- Reduce manual paperwork
+- Digitize shift handover logs
+- Make reports easier to view, analyze, and export
+- Experiment with a simple App + Web + Firebase system
 
 The goal was **not** to build a production-ready ERP, but to solve a real problem at a basic level.
 
@@ -24,35 +24,35 @@ The goal was **not** to build a production-ready ERP, but to solve a real proble
 
 ## What’s included
 
-### 🌐 Web Application
+### Web Application
 
-* Login using Firebase Authentication
-* Analysis dashboard with charts
-* Shift log table view
-* PDF generation of daily shift reports
-* Seeder tool to populate demo data
+- Login using Firebase Authentication
+- Analysis dashboard with charts
+- Shift log table view
+- PDF generation of daily shift reports
+- Seeder tool to populate demo data
 
 The web app is mainly used by **managers/admins** to:
 
-* View reports
-* Analyze production data
-* Export shift logs as PDF
+- View reports
+- Analyze production data
+- Export shift logs as PDF
 
 ---
 
-### 📱 Android Application
+### Android Application
 
-* Login screen
-* Date & shift selection
-* Simple dashboard
-* Form-based data entry for:
+- Login screen
+- Date & shift selection
+- Simple dashboard
+- Form-based data entry for:
+  - Overburden
+  - Coal mining
+  - Washery
+  - Dispatch
+  - Drilling, explosives, surface miners, etc.
 
-  * Overburden
-  * Coal mining
-  * Washery
-  * Dispatch
-  * Drilling, explosives, surface miners, etc.
-* Data is written directly to Firebase Firestore
+- Data is written directly to Firebase Firestore
 
 The Android app is mainly used by **supervisors/operators** to enter shift data from the field.
 
@@ -60,19 +60,19 @@ The Android app is mainly used by **supervisors/operators** to enter shift data 
 
 ## Tech stack
 
-* **Frontend (Web):** HTML, CSS, JavaScript
-* **Charts:** Chart.js
-* **PDF:** jsPDF + html2canvas
-* **Mobile App:** Android (Java)
-* **Backend:** Firebase
-
-  * Firebase Authentication
-  * Cloud Firestore
-  * Firebase Hosting (for web)
+- **Frontend (Web):** HTML, CSS, JavaScript
+- **Charts:** Chart.js
+- **PDF:** jsPDF + html2canvas
+- **Mobile App:** Android (Java)
+- **Backend:** Firebase
+  - Firebase Authentication
+  - Cloud Firestore
+  - Firebase Hosting (for web)
 
 There is **no custom backend server**.
 
 ---
+
 ## Architecture & Data Flow
 
 This project follows a simple App + Web + Firebase architecture.
@@ -92,10 +92,9 @@ This project follows a simple App + Web + Firebase architecture.
    (document ID format: `DDMMYYYY + Shift`, e.g. `16122025M`)
 3. Web app reads the same Firestore document
 4. Data is:
-
-   * Shown in tables
-   * Visualized using charts
-   * Converted into a downloadable PDF
+   - Shown in tables
+   - Visualized using charts
+   - Converted into a downloadable PDF
 
 ---
 
@@ -115,22 +114,17 @@ black-gold-shift/
 
 ## Screenshots
 
-
 1. **Web Dashboard (Analysis page)**
-
-   * Shows charts and KPI cards
-     ![Web Dashboard](screenshots/web-dashboard.png)
+   - Shows charts and KPI cards
+     ![Web Dashboard](screenshots/dashboard.png)
 
 2. **Web Shift Log Table view**
-
-   * Shows structured data used for PDF
-     ![Web Shift Log Table View](screenshots/web-shift-log.png)
+   - Shows structured data used for PDF
+     ![Web Shift Log Table View](screenshots/log-page.png)
 
 3. **Generated PDF**
-
-   * Confirms export works
+   - Confirms export works
      ![Generated PDF](screenshots/pdf-preview.png)
-
 
 ## Android App (Data Entry)
 
@@ -152,8 +146,8 @@ The project includes a **seeder page** that inserts demo shift data into Firesto
 
 Purpose:
 
-* Make the dashboard and PDF work without manual entry
-* Useful for demos and testing
+- Make the dashboard and PDF work without manual entry
+- Useful for demos and testing
 
 This is **not production logic** and is kept intentionally simple.
 
@@ -163,15 +157,15 @@ This is **not production logic** and is kept intentionally simple.
 
 This is an old hackathon project and is intentionally kept simple.
 
-* UI is **not fully responsive**
-* No role-based access control
-* Firestore rules are basic
-* PDF size can be large (MBs) due to HTML snapshot rendering
-* Cloud PDF upload is **disabled**
+- UI is **not fully responsive**
+- No role-based access control
+- Firestore rules are basic
+- PDF size can be large (MBs) due to HTML snapshot rendering
+- Cloud PDF upload is **disabled**
+  - Firebase Storage free tier is no longer available
+  - PDFs are downloaded locally instead
 
-  * Firebase Storage free tier is no longer available
-  * PDFs are downloaded locally instead
-* No backend validation or advanced security
+- No backend validation or advanced security
 
 These trade-offs were acceptable for a hackathon and learning project.
 
@@ -181,10 +175,10 @@ These trade-offs were acceptable for a hackathon and learning project.
 
 This project was built as a **team effort**:
 
-* **Web Dashboard & PDF Generation:**
+- **Web Dashboard & PDF Generation:**
   Handled by one team member (frontend + Firebase integration)
 
-* **Android Application:**
+- **Android Application:**
   Built by **Sujal** (Android app, data entry flows, Firebase writes)
 
 Both applications share the same Firebase backend and data model.
@@ -204,4 +198,3 @@ See the `LICENSE` file for full details.
 
 This project reflects our learning stage at the time it was built.
 It’s not meant to be perfect or production-ready — it’s a **real hackathon project**, revived and documented honestly.
-
