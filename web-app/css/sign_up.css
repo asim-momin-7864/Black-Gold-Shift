@@ -18,7 +18,7 @@ body {
   display: flex; /* Flexbox for main container */
   width: 80%;
   max-width: 900px;
-  height: 70vh;
+  min-height: 70vh;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
   border-radius: 10px;
   overflow: hidden;
@@ -149,4 +149,49 @@ button:hover {
 .underline {
   font-weight: bold !important;
   text-decoration: underline !important;
+}
+
+/* Test Credentials Note for Portfolio Viewers */
+.test-credentials-note {
+  margin-top: 18px;
+  padding: 10px 14px;
+  background-color: #f8f9fa;
+  border: 1px dashed #cccccc;
+  border-radius: 8px;
+  color: #666666;
+}
+
+.test-credentials-note p {
+  color: #666666 !important;
+  font-family: "Poppins", sans-serif;
+  font-size: 13px !important;
+  line-height: 1.5 !important;
+  font-weight: 400 !important;
+  margin: 2px 0 !important;
+}
+
+.test-credentials-note strong {
+  color: #333333;
+  font-weight: 600;
+}
+
+.test-credentials-note code {
+  font-family: monospace;
+  font-size: 12px;
+  background-color: #e9ecef;
+  padding: 2px 6px;
+  border-radius: 4px;
+  color: #212529;
+}
+
+.test-credentials-note a {
+  font-size: 13px !important;
+  color: #0a192f !important;
+}
+
+.test-credentials-note .test-credentials-subtext {
+  font-size: 11px !important;
+  color: #888888 !important;
+  margin-top: 4px !important;
+  font-style: italic;
 }
