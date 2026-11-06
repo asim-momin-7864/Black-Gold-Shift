@@ -1,13 +1,25 @@
+# Keystore & Signing Secrets
 *.jks
 *.keystore
+keystore.properties
+
+# IDE & Editor
+.idea/
+
+# Local configuration & secrets
 local.properties
 .env
+web-app/.env
 .env*.local
 **/env.js
-node_modules/
-.firebase/
-*.log
-.DS_Store
+
+# Build and Dependency directories
+.gradle/
 build/
 dist/
-.gradle/
+node_modules/
+.firebase/
+
+# OS & Logs
+.DS_Store
+*.log
