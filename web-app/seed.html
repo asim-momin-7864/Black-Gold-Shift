@@ -489,13 +489,9 @@
         coal_Explosives_Explosiveblasted: 380,
       };
 
-      // 2. Format today's document ID (DDMMYYYYM)
+      // 2. Format demo document ID (DDMMYYYYM) - fixed to 5 Nov 2026 Morning shift (05112026M)
       function getTodayShiftId() {
-        const today = new Date();
-        const day = String(today.getDate()).padStart(2, "0");
-        const month = String(today.getMonth() + 1).padStart(2, "0");
-        const year = today.getFullYear();
-        return `${day}${month}${year}M`;
+        return "05112026M";
       }
 
       // UI elements

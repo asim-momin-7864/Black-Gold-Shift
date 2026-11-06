@@ -11,7 +11,7 @@ export async function renderCharts() {
     const docSnap = await getDoc(docRef);
 
     if (!docSnap.exists()) {
-      alert("No shift data available for today.");
+      alert("No shift data available.");
       return;
     }
 

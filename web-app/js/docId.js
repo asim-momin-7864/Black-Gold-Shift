@@ -1,19 +1,14 @@
 // docId.js
-// Generates today's Firestore document ID in format DDMMYYYYM (e.g. 05112026M)
+// Fixed demo shift document ID for 5 November 2026 Morning shift (05112026M)
+
+export const DEMO_SHIFT_ID = "05112026M";
+export const DEMO_DATE_HEADING = "05-11-2026-M";
 
 export function getFormattedDate() {
-  const today = new Date();
-  const day = today.getDate().toString().padStart(2, "0");
-  const month = (today.getMonth() + 1).toString().padStart(2, "0");
-  const year = today.getFullYear();
-  return `${day}${month}${year}M`;
+  return DEMO_SHIFT_ID;
 }
 
-// Formats today's date for display headings in format DD-MM-YYYY-M
+// Formats date for display headings in format DD-MM-YYYY-M
 export function getDateHeading() {
-  const today = new Date();
-  const day = today.getDate().toString().padStart(2, "0");
-  const month = (today.getMonth() + 1).toString().padStart(2, "0");
-  const year = today.getFullYear();
-  return `${day}-${month}-${year}-M`;
+  return DEMO_DATE_HEADING;
 }
