@@ -1,6 +1,6 @@
 // Dashboard_page2.js
 import { auth, db } from "./firebase.js";
-import { onAuthStateChanged } from "firebase/auth";
+import { onAuthStateChanged, signOut } from "firebase/auth";
 import { doc, getDoc } from "firebase/firestore";
 import { getFormattedDate } from "./docId.js";
 
@@ -80,5 +80,16 @@ onAuthStateChanged(auth, (user) => {
   // Event listener for the test seeder button
   document.getElementById("seedDataButton")?.addEventListener("click", () => {
     window.location.href = "./seed.html";
+  });
+
+  // Logout button
+  document.getElementById("logoutButton")?.addEventListener("click", async (e) => {
+    e.preventDefault();
+    try {
+      await signOut(auth);
+    } catch (err) {
+      // ignore
+    }
+    window.location.href = "./login.html";
   });
 });

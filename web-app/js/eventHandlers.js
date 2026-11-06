@@ -1,6 +1,6 @@
 // eventHandlers.js
 import { auth } from "./firebase.js";
-import { onAuthStateChanged } from "firebase/auth";
+import { onAuthStateChanged, signOut } from "firebase/auth";
 import { renderCharts } from "./chartConfig.js";
 
 // Check if user is signed in
@@ -9,6 +9,17 @@ onAuthStateChanged(auth, (user) => {
     window.location.href = "./login.html";
     return;
   }
+
+  // Logout button
+  document.getElementById("logoutButton")?.addEventListener("click", async (e) => {
+    e.preventDefault();
+    try {
+      await signOut(auth);
+    } catch (err) {
+      // ignore
+    }
+    window.location.href = "./login.html";
+  });
 
   // Already on monitoring page, do nothing
   document
