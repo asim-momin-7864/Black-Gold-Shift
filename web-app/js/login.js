@@ -10,7 +10,7 @@ async function loginUser(event) {
 
   try {
     // Authenticating user
-    const userCredential = await signInWithEmailAndPassword(
+    await signInWithEmailAndPassword(
       auth,
       email,
       password
@@ -19,7 +19,6 @@ async function loginUser(event) {
     window.location.href = "./Dashboard_page1.html"; // Redirect to dashboard after successful login
   } catch (error) {
     alert(`Error: ${error.message}`);
-    console.error("Login error:", error); // Log the error for debugging
   }
 }
 

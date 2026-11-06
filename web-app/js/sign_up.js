@@ -9,7 +9,7 @@ async function signUpUser(event) {
 
   try {
     // Creating a new user
-    const userCredential = await createUserWithEmailAndPassword(
+    await createUserWithEmailAndPassword(
       auth,
       email,
       password
