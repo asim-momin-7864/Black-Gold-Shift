@@ -6,7 +6,7 @@ Both applications use **Firebase** as a shared backend.
 
 This project was originally built during a college hackathon and was recently revived to make it runnable and demo-ready again.
 
----
+## [**Live demo**](https://black-gold-shift-2-hosted.web.app/index.html)
 
 ## Why this project?
 
